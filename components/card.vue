@@ -13,7 +13,7 @@
     <template #text>
       <div class="amountblock">
         <center><span class="cost">{{cost}} ₽</span></center>      
-        <vs-button warn transparent icon>
+        <vs-button danger flat>
           В корзину
         </vs-button>
       </div>
