@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt --port 9005",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
+    "boxicons": "^2.0.7",
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12",
     "vuesax": "^4.0.1-alpha.25"
