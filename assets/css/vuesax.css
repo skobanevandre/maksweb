@@ -5262,12 +5262,12 @@
   -webkit-transition: all 0.25s ease, color 0s;
   transition: all 0.25s ease, color 0s;
   font-weight: bold;
-  color: inherit;
+  color: #511301;
   border-bottom: 3px solid transparent;
 }
 .vs-navbar__item.active {
   opacity: 1;
-  border-bottom: 3px solid #2d3f50;
+  border-bottom: 3px solid #511301;
 }
 .vs-navbar__item:hover {
   opacity: 1;

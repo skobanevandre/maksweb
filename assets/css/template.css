@@ -8,3 +8,22 @@ html {
   margin: auto;
 }
 
+footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  background: url('/images/template/bg.jpg');
+  color: white;
+}
+
+footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footerblock {
+  min-width: 380px;
+  min-height: 100px;
+  margin: 0px 10px;
+}
+

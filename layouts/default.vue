@@ -21,7 +21,9 @@
 
     <footer>
       <div class="container">
-        <center> FOOTER </center>
+        <footerleft/> 
+        <footercenter/> 
+        <footerright/> 
       </div>
     </footer>
   </div>
