@@ -12,7 +12,7 @@
 
     <template #text>
       <div class="amountblock">
-        <center><span class="cost">{{cost}} ₽</span></center>      
+        <center><span class="itemPrice">{{price}} ₽</span></center>      
         <vs-button danger flat>
           В корзину
         </vs-button>
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  props: [ 'title', 'image', 'cost', ],
+  props: [ 'title', 'image', 'price', ],
   data() {
     return {
       amount: 0,
@@ -52,11 +52,4 @@ export default {
     flex-wrap: wrap;
     align-items: center;
   }
-
-  .cost {
-    color: red;
-    font-weight: bold;
-    font-size: 1.5em;
-  }
-
 </style>
