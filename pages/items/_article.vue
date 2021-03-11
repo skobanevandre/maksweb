@@ -36,38 +36,54 @@
           </vs-button>
         </div>  
 
+         <hr style="margin: 20px; border: none; border-bottom: 1px dotted #ccc;">
+
+        <div class="rowspacebetween" style="margin-bottom: 10px;">
+          <div>Артикул: <span class="itemArticle">{{ item.article }}</span></div>  
+          <div>В наличии: <span class="itemInStock">Есть</span></div>  
+          <div>Стоимость: <span class="itemPrice">{{ item.price }} ₽</span></div>  
+        </div>
+
+         <hr style="margin: 20px; border: none; border-bottom: 1px dotted #ccc;">
+
+        <div class="itemDimensions">
+          <div>Высота: 120 мм</div>
+          <div>Ширина: 65 мм</div>
+          <div>Глубина: 10 мм</div>  
+          <div>Вес: 20 гр</div>  
+        </div>  
+
+        <hr style="margin: 20px; border: none; border-bottom: 1px dotted #ccc;">
+
         <dl>
-          <dt>Артикул</dt>
-          <dd>{{ item.article }}</dd>  
-
-          <dt>В наличии</dt>
-          <dd><instock checked /></dd>  
-
-          <dt>Стоимость</dt>
-          <dd><span class="itemPrice">{{ item.price }} ₽</span></dd>  
-
-          <dt>Высота</dt>
-          <dd>мм</dd>            
-
-          <dt>Ширина</dt>
-          <dd>мм</dd>            
-
-          <dt>Глубина</dt>
-          <dd>мм</dd>            
-
           <dt>Количество</dt>
           <dd><vs-input type="number" v-model="qty" flat/></dd>  
         </dl>
 
-        <vs-button primary block size="large">
+        <vs-button primary block size="large" style="margin-bottom: 20px;">
           <i class='bx bx-cart-alt' style="margin-right: 10px;" />
-          Оформить заявку
+          Оформить заказ
         </vs-button>       
+
+        <div class="rowspacebetween">
+          <div class="commblock">
+            <span>Возникли вопросы?</span>
+            <vs-button block color="#23a900" size="large">
+              <i class='bx bx-cart-alt' style="margin-right: 10px;" />
+              Напишите нам
+            </vs-button>             
+          </div>
+          <div class="commblock">
+            <span>Добавьте товар в избранное</span>
+            <vs-button block color="#c98e00" size="large">
+              <i class='bx bx-cart-alt' style="margin-right: 10px;" />
+              Добавить
+            </vs-button>             
+          </div>
+        </div>
 
       </div>
     </div>  
-
-    <pre> {{ item }}</pre>
   </div>
 </template>
 
@@ -87,3 +103,15 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  .commblock {
+    max-width: 280px; 
+    width: 100%; 
+    display: flex; 
+    justify-items: center; 
+    flex-direction: column;
+    text-align: center;
+    margin: 20px 0px;
+  }
+</style>

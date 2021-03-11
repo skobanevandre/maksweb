@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NuxtLink :to=setUrl>
     <vs-card class="card">
 
       <template #title>
@@ -26,15 +27,21 @@
     </template>
 
     </vs-card>
+    </NuxtLink>
   </div>
 </template>
 
 <script>
 export default {
-  props: [ 'title', 'image', 'price', ],
+  props: [ 'title', 'image', 'price', 'url'],
   data() {
     return {
       amount: 0,
+    }
+  },
+  computed:{
+    setUrl() {
+      return '/items/' + this.url;
     }
   }
 }

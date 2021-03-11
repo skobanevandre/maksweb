@@ -58,7 +58,25 @@ footer .container {
 .itemPrice {
   color: red;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.3em;
+}
+
+.itemArticle {
+  color:black;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.itemInStock {
+  color:green;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.itemDimensions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;  
 }
 
 .socialGroup {
@@ -85,4 +103,23 @@ dt {
 dd {
 	margin: 0 0 0 150px;
 	padding: 5px 0;
+}
+
+.rowleft {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.rowcenter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.rowspacebetween {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  justify-items: center;
 }

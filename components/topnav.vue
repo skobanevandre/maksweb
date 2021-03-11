@@ -6,7 +6,7 @@
         <img src = "/images/template/logo.png" class="logo" >
       </template>
 
-      <vs-navbar-item :active="activeNav == 'index'" id="index">
+      <vs-navbar-item :active="activeNav == 'index'" id="index" to="/">
         Главная
       </vs-navbar-item>
 
