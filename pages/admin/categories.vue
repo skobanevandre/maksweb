@@ -204,7 +204,7 @@ export default {
   },
 
   async asyncData({ params, $axios }) {
-    const categories = await $axios.$get( `/categories` );
+    const categories = await $axios.$get( `/category` );
     return { 'categories' : categories }; 
   },
 
@@ -233,24 +233,18 @@ export default {
 
   methods: {
     async delCategory( category ) {
-      await this.$axios.$delete(  `/categories/${category.id}` )
+      await this.$axios.$delete(  `/category/${category.id}` )
         .then( response => { 
           if ( response.success ) {
             this.deleteDialog=false;
-            sessionStorage.newcat = true; 
+            sessionStorage.delcat = true; 
             this.$router.go();
           }
-          else 
-            this.problemNotification();
-         }
-        )
-        .catch( 
-          this.problemNotification() 
-        );
-    }, //delCategory
+        } )
+     }, //delCategory
 
     async newCategory( newCategory ) {
-      await this.$axios.$post( `/categories`, newCategory )
+      await this.$axios.$post( `/category`, newCategory )
         .then( response => { 
           if ( response.success ) {
             sessionStorage.newcat = true; 
@@ -261,7 +255,7 @@ export default {
     }, //newCategory
 
     async editCategory( category ) {
-      await this.$axios.$put( `/categories`, category )
+      await this.$axios.$put( `/category`, category )
         .then( response => { 
           if ( response.success ) {
             sessionStorage.editcat = true; 
@@ -280,6 +274,7 @@ export default {
     newCatNotification() {
       const noti = this.$vs.notification({
             position: 'top-right',
+            color: 'success',
             title: 'Поздравляем !!!!',
             text: `Вы добавили новый элемент в список категорий.`
           })
@@ -293,7 +288,7 @@ export default {
           })
     },
 
-    editCatNotification() {
+    delCatNotification() {
       const noti = this.$vs.notification({
             color: 'danger',
             position: 'top-right',
