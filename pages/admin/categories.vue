@@ -4,11 +4,12 @@
 
     <div class="adminTopBar">
       <div class="adminTopBarLeft">
+
         <vs-button flat @click="newDialog=true">
           <i class="bx bx-plus" style="margin-right: 10px;"/>
           Добавить
         </vs-button>
-        <vs-button flat :disabled=!selected>
+        <vs-button flat :disabled=!selected @click="editCategoryClick( selected )">
           <i class="bx bx-edit" style="margin-right: 10px;"/>
           Редактировать
         </vs-button>
@@ -17,12 +18,15 @@
           Удалить
         </vs-button>
       </div>
+
       <div class="adminTopBarRight"> 
+
         <vs-input v-model="filterCategory" placeholder="Поиск">
-        <template #icon>
-          <i class='bx bx-search'></i>
-        </template>
-      </vs-input>
+          <template #icon>
+            <i class='bx bx-search'></i>
+          </template>
+        </vs-input>
+
       </div>  
     </div>
     
@@ -64,7 +68,7 @@
         </span>
 
         <span style="display: flex; justify-content: center;">
-          №{{  selected ? selected.id : null }} - {{  selected ? selected.name : null }}?
+          № {{  selected ? selected.id : null }} - {{  selected ? selected.name : null }} ?
         </span>
       </div>
 
@@ -89,15 +93,30 @@
         Добавление категории
       </template>
 
-      <div>
-        Наименование:<br>
-        Родительская категория:<br>
-        Описание:<br>
+      <div style="padding: 30px 30px 0 30px;">
+        <vs-input label-placeholder="Наименование" v-model="cat.name"  style=" margin-bottom: 40px;"/>
+        
+        <vs-select 
+          label-placeholder="Родительская категория" 
+          v-model="cat.parentcategory" 
+          style=" margin-bottom: 40px; width: 100%;"
+        >
+          <vs-option 
+            v-for = "sel_category in categories"
+            :label = "sel_category.name" 
+            :value = "sel_category.id"
+            :key = "sel_category.id" 
+          >
+            {{ sel_category.name }}
+          </vs-option>
+        </vs-select>
+
+        <vs-input type="textarea" label-placeholder="Описание" v-model="cat.description"  style=" margin-bottom: 40px;"/>
       </div>
 
       <template #footer>
         <div class="rowright">
-          <vs-button @click="newCategory( newCategory )"> 
+          <vs-button @click="newCategory( cat )"> 
             <i class="bx bx-check" style="margin-right: 10px;"/>
             Применить
           </vs-button>
@@ -109,6 +128,47 @@
       </template>      
     </vs-dialog>  
 
+    <!-- Редактирование -->
+
+    <vs-dialog prevent-close v-model="editDialog" blur width="100%">
+      <template #header>
+        Редактироваие категории {{ editSelected.name }}
+      </template>
+
+      <div style="padding: 30px 30px 0 30px;">
+        <vs-input label-placeholder="Наименование" v-model="editSelected.name"  style=" margin-bottom: 40px;"/>
+        
+        <vs-select 
+          label-placeholder="Родительская категория" 
+          v-model="editSelected.parentcategory" 
+          style=" margin-bottom: 40px; width: 100%;"
+        >
+          <vs-option 
+            v-for = "sel_category in categories"
+            :label = "sel_category.name" 
+            :value = "sel_category.id"
+            :key = "sel_category.id" 
+          >
+            {{ sel_category.name }}
+          </vs-option>
+        </vs-select>
+
+        <vs-input type="textarea" label-placeholder="Описание" v-model="editSelected.description"  style=" margin-bottom: 40px;"/>
+      </div>
+
+      <template #footer>
+        <div class="rowright">
+          <vs-button @click="editCategory( editSelected )"> 
+            <i class="bx bx-check" style="margin-right: 10px;"/>
+            Применить
+          </vs-button>
+          <vs-button @click="editDialog=false">
+            <i class="bx bx-x" style="margin-right: 10px;"/>
+            Отмена
+          </vs-button>
+        </div>  
+      </template>      
+    </vs-dialog>  
 
 
     <pre>{{ selected }} </pre>
@@ -127,6 +187,19 @@ export default {
       deleteDialog: false,
       newDialog: false,
       editDialog: false,
+
+      editSelected: {
+        name: '',
+        parentcategory: '',
+        description: '',        
+      },
+
+      cat: {
+        name: '',
+        parentcategory: '',
+        description: '',
+      },
+      insertSuccess: '',
     }
   },
 
@@ -159,18 +232,102 @@ export default {
   }, // computed
 
   methods: {
-    delCategory( category ) {
-      this.deleteDialog=!this.deleteDialog;
-      this.$router.go();
+    async delCategory( category ) {
+      await this.$axios.$delete(  `/categories/${category.id}` )
+        .then( response => { 
+          if ( response.success ) {
+            this.deleteDialog=false;
+            sessionStorage.newcat = true; 
+            this.$router.go();
+          }
+          else 
+            this.problemNotification();
+         }
+        )
+        .catch( 
+          this.problemNotification() 
+        );
     }, //delCategory
 
-    newCategory( newCategory ) {
-      this.newDialog=false;
+    async newCategory( newCategory ) {
+      await this.$axios.$post( `/categories`, newCategory )
+        .then( response => { 
+          if ( response.success ) {
+            sessionStorage.newcat = true; 
+            this.$router.go();
+          } 
+        } 
+      );
+    }, //newCategory
+
+    async editCategory( category ) {
+      await this.$axios.$put( `/categories`, category )
+        .then( response => { 
+          if ( response.success ) {
+            sessionStorage.editcat = true; 
+            this.$router.go();
+          } 
+        } );
+      this.editDialog=false;
       this.$router.go();
-    }, //delCategory
+    }, //newCategory
+
+    editCategoryClick ( selected ) {
+      this.editSelected = Object.assign( {}, selected );
+      this.editDialog = true;
+    },
+
+    newCatNotification() {
+      const noti = this.$vs.notification({
+            position: 'top-right',
+            title: 'Поздравляем !!!!',
+            text: `Вы добавили новый элемент в список категорий.`
+          })
+    },
+
+    editCatNotification() {
+      const noti = this.$vs.notification({
+            position: 'top-right',
+            title: 'Поздравляем !!!!',
+            text: `Вы отредактировали категорию.`
+          })
+    },
+
+    editCatNotification() {
+      const noti = this.$vs.notification({
+            color: 'danger',
+            position: 'top-right',
+            title: 'Жаль ((((',
+            text: `Вы удалили возможно очень нужную категорию. Обратно ее не восстановишь. В следующий раз подумайте Семь раз чтобы не повторять своих ошибок.`
+          })
+    },
+    
+    problemNotification() {
+      const noti = this.$vs.notification({
+            color: 'danger',
+            position: 'top',
+            title: 'Внимание !!!!',
+            text: `Возникли проблемы с обработкой запроса. Попробуйте еще раз. Если ошибка не исчезнет, свяжитесь пожалуйста с администратором сайта.`
+          })
+    } 
+
   }, // methods
 
   mounted() {
+    if ( sessionStorage.newcat ) {
+      this.newCatNotification();
+      sessionStorage.removeItem( 'newcat' );
+    }
+
+    if ( sessionStorage.editcat ) {
+      this.editCatNotification();
+      sessionStorage.removeItem( 'editcat' );
+    }
+
+    if ( sessionStorage.delcat ) {
+      this.delCatNotification();
+      sessionStorage.removeItem( 'delcat' );
+    }
 
   },
 

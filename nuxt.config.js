@@ -57,6 +57,27 @@ export default {
 
   serverMiddleware: [
     '~/api/index.js',
-  ]
+  ],
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          // required: true,
+          type: ''
+        },
+        user: {
+          property: 'username',
+          autoFetch: true,
+        },
+        endpoints: {
+          login: { url: process.env.BASE_URL + '/auth/login', method: 'post' },
+          logout: { url: process.env.BASE_URL + '/auth/logout', method: 'post' },
+          user: { url: process.env.BASE_URL + '/auth/user', method: 'get' }
+        }
+      }
+    }
+  }
 
 }

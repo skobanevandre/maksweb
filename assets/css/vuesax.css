@@ -1453,7 +1453,7 @@
 .vs-input__label {
   position: absolute;
   left: 13px;
-  font-size: 0.8rem;
+  /* font-size: 0.85em; */
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   cursor: text;
@@ -1473,7 +1473,7 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 .vs-input__label--hidden {
   opacity: 0;
@@ -1485,7 +1485,7 @@
   pointer-events: auto;
   -webkit-transform: translate(-3px, -80%);
           transform: translate(-3px, -80%);
-  font-size: 0.75rem;
+  font-size: 0.85em;
 }
 .vs-input__label--label {
   opacity: 1;
@@ -2361,7 +2361,6 @@
 
 .vs-select-content {
   width: 100%;
-  max-width: 200px;
 }
 .vs-select-content.block.block {
   max-width: 100%;
@@ -2673,6 +2672,7 @@
   min-height: 38px;
   padding-right: 30px;
   width: 100%;
+  font: inherit;
 }
 .vs-select__input.multiple {
   color: transparent;
@@ -2933,7 +2933,7 @@
 .vs-select__label {
   position: absolute;
   left: 14px;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   cursor: text;
@@ -2952,7 +2952,7 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  opacity: 0.4;
+  opacity: 0.6;
   z-index: 500;
 }
 .vs-select__label--hidden {
@@ -3087,6 +3087,7 @@
   opacity: 1;
   visibility: visible;
   max-height: 40px;
+  font:inherit;
 }
 .vs-select__option.hiddenOption {
   opacity: 0;
@@ -4352,7 +4353,6 @@
 }
 .vs-dialog__footer {
   padding: 10px 16px;
-  padding-top: 0px;
 }
 .vs-dialog__header {
   display: -webkit-box;

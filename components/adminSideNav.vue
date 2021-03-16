@@ -4,6 +4,10 @@
         <template #logo>
           <center><h2>АДМИНКА</h2></center>
           <img src="/images/template/logo.png">
+          <br>
+          <center>user: {{ $auth.user }}</center>          
+          <br>
+          <center>Залогинен : {{ $auth.loggedIn ? 'ДА' : 'НЕТ' }}</center>          
         </template>
 
         <vs-sidebar-item id="home" to="/admin">
@@ -59,6 +63,10 @@ export default {
     return {
       active: this.$route.path
     }
+  },
+
+  mounted() {
+    console.log( this.$auth );
   }
 }
 </script>
