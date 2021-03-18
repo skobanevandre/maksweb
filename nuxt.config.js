@@ -60,6 +60,11 @@ export default {
   ],
 
   auth: {
+    redirect: {
+      login: '/admin/login',
+      logout: '/',
+      home: '/admin/'
+    }, 
     strategies: {
       local: {
         token: {
@@ -74,7 +79,7 @@ export default {
         endpoints: {
           login: { url: process.env.BASE_URL + '/auth/login', method: 'post' },
           logout: { url: process.env.BASE_URL + '/auth/logout', method: 'post' },
-          user: { url: process.env.BASE_URL + '/auth/user', method: 'get' }
+          user: { url: process.env.BASE_URL + '/auth/user', method: 'get' },
         }
       }
     }

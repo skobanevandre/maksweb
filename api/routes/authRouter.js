@@ -24,6 +24,7 @@ authRouter.use( cookieParser() );
     let validUser = await user.getByName( username );
       if ( !validUser || validUser.password.charAt( 0 ) !== '$' ) return done(null, false); 
       if ( await !argon2.verify(validUser.password, password) ) return done(null, false);       
+      // console.log( 'USER PASSED' )
     return done( null,  validUser );
   })
 );
@@ -53,6 +54,7 @@ passport.deserializeUser(
  * Логи пользователя в систему, цепляя паспорт.
  */
 authRouter.post('/login', passport.authenticate( 'local' ), async ( req, res ) => {
+    // console.log( 'REQUEST: ', req.body, req.user )
     res.send( await user.generateToken( req.user ) );
   }
 ); 
@@ -69,7 +71,7 @@ authRouter.get( '/user', async ( req, res ) => {
     delete currentUser.password;
     res.json( currentUser );
   } else   
-    res.send( 'Unauthorised' );    
+    res.send( false );    
 } )
 
 /**

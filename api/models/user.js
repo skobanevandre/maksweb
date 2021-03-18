@@ -35,7 +35,7 @@ export async function save ( user ) {
  */
  export function generateToken( validUser ) {
   const signature = 'oOG1rAK_VP9fhtVDd1bu';
-  let expireTime = 120;
+  let expireTime = 3600;
   let sign = jwt.sign( { username: validUser.username }, signature, { expiresIn: expireTime } );
   return sign;
 }

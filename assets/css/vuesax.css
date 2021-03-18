@@ -7338,7 +7338,7 @@
 .vs-notification__content__text p {
   margin: 0px;
   padding: 0px;
-  font-size: 0.75rem;
+  /* font-size: 0.75rem; */
   line-height: 1rem;
 }
 .vs-notification__content__header {
@@ -7351,7 +7351,7 @@
   width: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: 0.9rem;
+  /* font-size: 0.9rem; */
 }
 
 .darken .vs-notification--dark {

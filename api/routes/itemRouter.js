@@ -1,7 +1,7 @@
 const express = require("express");
 const itemRouter = express.Router();
 
-const category = require( './../models/item' );
+const item = require( './../models/item' );
 const db = require( './../db' );
 
 /**
@@ -10,6 +10,11 @@ const db = require( './../db' );
 itemRouter.get('/', async function(req, res){
   let r = await item.get();
   res.send( r )
+});
+
+itemRouter.put('/', async function(req, res) {
+  let r = await item.update( req.body.item );
+  res.send( { 'sucess': true } )
 });
 
 /**

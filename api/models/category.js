@@ -12,7 +12,7 @@ export async function get() {
   c.end();
   return r;
 }
-
+         
 /**
  * @param { JSON } category 
  * @returns { boolean }
@@ -27,7 +27,7 @@ export async function edit( category ) {
   c.end();  
   return r;
 }
-
+ 
 /**
  * @param { JSON } category 
  * @returns { boolean }
