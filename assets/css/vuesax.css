@@ -5041,11 +5041,11 @@
   height: 0px !important;
 }
 .vs-table__th {
-  padding: 10px 12px;
-  text-align: left;
+  padding: 8px 0px;
+  text-align: center;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   border: 0px;
 }
 .vs-table__th.sort .vs-table__th__content {
@@ -5081,7 +5081,7 @@
           align-items: center;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
-          justify-content: flex-start;
+          justify-content: center;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
@@ -5116,10 +5116,9 @@
           transform: rotate(-135deg);
 }
 .vs-table__td {
-  padding: 10px 12px;
+  padding: 6px;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
-  /* font-size: 0.8rem; */
   border: 0px;
 }
 .vs-table__td:last-child {

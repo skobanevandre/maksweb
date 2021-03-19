@@ -19,10 +19,10 @@
 
         <div>
           <div style="margin-bottom: 9px; text-align: center;">
-            <span>Cтандарт:</span>
+            <span>Опт:</span>
           </div>
           <div style="width: 100%; text-align: center;">
-            <span class="itemPrice">{{ standartPrice }}</span>
+            <span class="itemPrice">{{ wholesalePrice }}</span>
           </div>
         </div>
 
@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       initPrice: this.item.price,
-      standartPrice: 0,
+      wholesalePrice: 0,
       salePrice: 0,
       licvidationPrice: 0,
       initData: this.item.price,
@@ -70,9 +70,9 @@ export default {
         return this.initPrice;
       },
       set( val ) {
-        this.standartPrice = this.fixPrice( ( val * ( 1 + ( this.$store.state.settings.standartpricepercent / 100 ) ) ).toFixed( 2 ) );
-        this.salePrice = this.fixPrice( ( val * ( 1 + ( this.$store.state.settings.salepricepercent / 100 ) ) ).toFixed( 2 ) );
-        this.licvidationPrice = this.fixPrice( ( val * ( 1 + ( this.$store.state.settings.licvidationpricepercent / 100 ) ) ).toFixed( 2 ) );
+        this.wholesalePrice = this.fixPrice( this.calculatePrice( val, this.$store.state.settings.wholesalepricepercent ) );
+        this.salePrice = this.fixPrice( this.calculatePrice( val, this.$store.state.settings.salepricepercent ) );
+        this.licvidationPrice = this.fixPrice( this.calculatePrice( val, this.$store.state.settings.licvidationpricepercent ) );
         this.initPrice = val;
         return val;
       }
@@ -92,6 +92,16 @@ export default {
       this.initData = this.initPrice;
     },
 
+    /**
+     * Определяем цену товара основываясь на процентах от стандартной цены
+     */
+    calculatePrice( initValue, percentage ){
+      return  ( initValue * ( ( 100 - percentage ) / 100 ) ).toFixed( 2 );
+    },
+
+    /**
+     * Выравниваем цену товара до близжайших **9.00 
+     */
     fixPrice( price ) {
       return ( ( ( parseFloat( ( price / 10 ).toFixed( ) ) + 1 ) * 10 ) - 1 ).toFixed( 2 );
     }  

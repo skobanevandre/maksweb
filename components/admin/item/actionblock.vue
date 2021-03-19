@@ -1,13 +1,15 @@
 <template>
   <vs-row justify="space-between" align="center">
+
     <vs-switch v-model="setActive" style="pointer-events: auto;">
       <i class='bx bx-check-double'></i>
     </vs-switch>
-    <vs-switch v-model="setIndexPage" style="pointer-events: auto;">На Главной</vs-switch>
-    <div>
-      ш: {{ item.width }} :: в: {{ item.heigth }} :: г: {{ item.deep }}
-    </div>
 
+    <vs-switch v-model="setIndexPage" style="pointer-events: auto;">На Главной</vs-switch>
+
+    <div>
+      <AdminItemActionInstock />
+    </div>
 
     <vs-checkbox style="pointer-events: auto;">Выбор</vs-checkbox>
   </vs-row>
@@ -78,13 +80,7 @@ export default {
   }, // Computed
 
   methods: {
-    showDimensions() {
-      this.$vs.notification({
-          position: 'top-right',
-          title: 'Размеры товара: ',
-          text: `Ширина: <b>${this.item.width}</b>, mm <br> Высота: <b>${this.item.heigth}</b>, mm <br> Глубина:  <b>${this.item.deep}</b>, mm `
-        })
-    }
+
   }
 }
 </script>

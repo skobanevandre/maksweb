@@ -20,10 +20,9 @@ export async function get( ) {
  * Возвращает JSON 
  */
  export async function updatePricingPercentage( data ) {
-   console.log( 'data: ', data );
   let c = db.connect();
-    let r = await c.execute( 'update settings set standartpricepercent = ?, salepricepercent = ?, licvidationpricepercent = ?' ,
-      [ data.standartpricepercent, data.salepricepercent, data.licvidationpricepercent ] )
+    let r = await c.execute( 'update settings set wholesalepricepercent = ?, salepricepercent = ?, licvidationpricepercent = ?' ,
+      [ data.wholesalepricepercent, data.salepricepercent, data.licvidationpricepercent ] )
       .then( ( [ result ] ) => { return result } );
   c.end();  
   return r;

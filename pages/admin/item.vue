@@ -33,7 +33,7 @@
     <vs-table striped v-model="selected">
       <template #thead>
         <vs-tr>
-          <vs-th>Изображение</vs-th>
+          <vs-th>#</vs-th>
           <vs-th>Данные</vs-th>
         </vs-tr>
       </template>
@@ -45,11 +45,12 @@
           :data="item"
           :is-selected="selected == item"
         >
-          <vs-td>
-              <img :src = item.image style="width: 170px; border-radius: 20px;">
+          <vs-td style="text-align: center;">
+            <img :src = item.image style="width: 150px;; border-radius: 20px;">
+            <AdminItemActionDefault />
           </vs-td>
 
-          <vs-td>
+          <vs-td style="width: 100%;">
             <div @click = "selected = item" style="margin-bottom: 10px;"> 
               {{ item.article }} :: <b>{{ item.title }}</b>
             </div>

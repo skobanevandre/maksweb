@@ -3,8 +3,8 @@
     <vs-row justify="space-between" align="center">
 
       <div>
-        <span>Стандартная цена, %:</span>
-        <vs-input type="number" v-model="settings.standartpricepercent" style="width: 150px; margin-top: 10px;" /> 
+        <span>Оптовая цена, %:</span>
+        <vs-input type="number" v-model="settings.wholesalepricepercent" style="width: 150px; margin-top: 10px;" /> 
       </div>  
 
       <div>
@@ -32,16 +32,21 @@ export default {
 
   data() {
     return {
-      settings: this.$store.state.settings,
+      settings: {}
     }  
   },
 
   methods: {
     async setSettings() {
         await this.$axios.$put( `/settings`, { settings: this.settings } );
+        this.$store.commit( 'getData', await this.$axios.$get( `/settings` ) );
     },
 
   },
+
+  created() {
+    this.settings = Object.assign( {}, this.$store.state.settings );
+  }
 
 
 }
