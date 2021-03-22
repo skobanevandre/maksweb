@@ -22,12 +22,7 @@ itemRouter.post( '/:article', imageController.saveImage );
 /**
  * Получаем картинки
  */
-itemRouter.get('/:article', async function( req, res ){
-  // Смотртрим существует ли файл с названием /images/item/ARTICLE.jpg
-
-  
-} );  
-
+itemRouter.get('/:article', imageController.getImages );
 
 
 module.exports = itemRouter;

@@ -14,7 +14,7 @@ const destDir = 'static/images/item/';
  *  Возвращаем сохраненное имя файла + путь.
  */
 
-exports.saveImage = async ( req, res ) => {
+exports.saveImage = ( req, res ) => {
 
   if ( !req.files || Object.keys(req.files).length == 0 ) 
     return res.status(400).json( { status: false } );
@@ -45,12 +45,26 @@ exports.saveImage = async ( req, res ) => {
         function (err){
           if ( err ) return res.status(400).json( { status: 'rename', dest:  destDir + req.params.article + '/' + imageName + '.jpg' } );
 
-          return res.json( { image: destDir + req.params.article + '/' + imageName + '.jpg', } )
+          //return res.json( { image: destDir + req.params.article + '/' + imageName + '.jpg', } )
+          exports.getImages( req, res );
           
       }); // fs.rename
     }); // im.convert
   }); // image.mv
+}; // exports.saveImage
 
-}
+
+/**
+ * Выдача списка картинок по конкретному товару.
+ * Картинок может быть много поэтому выдаем массив картинок.
+ */
+exports.getImages = ( req, res ) => {
+  fs.readdir ( destDir + req.params.article + '/', ( err, files ) => {
+    if ( err ) 
+      return res.status(400).json( { status: 'Can`t read destination directory' } );
+
+    return res.json( files );
+  });
+};
 
 
