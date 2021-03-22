@@ -26,7 +26,9 @@ export default {
       },
       
       set( val ) {
-        return 0
+        // if ( val == '2' ) this.$router.push( { path: '/admin/itemedit', params: { id : this.item.id } } );
+        if ( val == '2' ) this.$router.push( '/admin/item/' + this.item.id );
+
       }
 
     }

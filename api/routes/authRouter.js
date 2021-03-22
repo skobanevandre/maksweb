@@ -10,9 +10,10 @@ const argon2 = require('argon2');
 
 const user = require('./../models/user');
 
+authRouter.use( cookieParser() );
 authRouter.use( passport.initialize() );
 authRouter.use( passport.session() );
-authRouter.use( cookieParser() );
+
 
 /**
  * Local Стратегия для Passport.js
@@ -33,6 +34,7 @@ authRouter.use( cookieParser() );
  * вообще не понятно зачем нужна данная функция
  */
 passport.serializeUser(function( validUser, done ) {
+  console.log( 'serializeUser', validUser );
   done( null, validUser.id );
 });
 
@@ -41,10 +43,12 @@ passport.serializeUser(function( validUser, done ) {
  */
 passport.deserializeUser( 
   async function( id, done ) {
-    console.log( 'deserializeUser, id',  id );
+    console.log( 'deserializeUser, id=',  id );
     let c = db.connect();
-    let validUser = await c.execute( 'select * from user where id = ?', [ id ] )
-          .then ( request => { return JSON.parse( JSON.stringify( result[0][0] ) ) })
+    console.log( 'connected' );
+    let validUser = await c.query( 'select * from user where id = ?', [ id ] )
+          .then ( ( [ result ] ) => { return result[0] })
+    console.log( 'Query result:', validUser )
     c.end();  
     done( null, validUser );
   }

@@ -26,7 +26,7 @@
           Категории
         </vs-sidebar-item>
 
-        <vs-sidebar-item id="item" to="/admin/item">
+        <vs-sidebar-item id="items" to="/admin/items">
           <template #icon><i class='bx bx-task'></i></template>
           Товары
         </vs-sidebar-item>
@@ -40,6 +40,11 @@
           <template #icon><i class='bx bxs-cog'></i></template>
           Настройки
         </vs-sidebar-item>
+
+        <vs-sidebar-item id="test">
+             <span @click="setClick"> TEST </span>
+        </vs-sidebar-item>
+
 
         <template #footer>
           <vs-row justify="space-between">
@@ -65,6 +70,12 @@ export default {
   data() {
     return {
       active: this.$route.path
+    }
+  },
+
+  methods: {
+    setClick() {
+      this.$router.push( { name: 'admin-testing', params: { id: '47' } } );
     }
   },
 
