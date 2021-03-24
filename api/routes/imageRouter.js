@@ -24,5 +24,10 @@ itemRouter.post( '/:article', imageController.saveImage );
  */
 itemRouter.get('/:article', imageController.getImages );
 
+/**
+ * Удаление картинки
+ */
+ itemRouter.delete('/:article', imageController.delImage );
+
 
 module.exports = itemRouter;

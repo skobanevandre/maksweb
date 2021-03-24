@@ -61,10 +61,24 @@ exports.saveImage = ( req, res ) => {
 exports.getImages = ( req, res ) => {
   fs.readdir ( destDir + req.params.article + '/', ( err, files ) => {
     if ( err ) 
-      return res.status(400).json( { status: 'Can`t read destination directory' } );
+      return res.json( [ ] );
 
     return res.json( files );
   });
 };
 
+/**
+ * Удаляем картинку. Картинка находится в теле запроса. 
+ * Артикул - в параметрах
+ */
+exports.delImage = ( req, res ) => {
+  console.log( 'image = ' , req.body )
+  if ( req.body.image ) 
+    fs.unlink( destDir + req.params.article + '/' + req.body.image, 
+    ( err ) => {
+      exports.getImages( req, res );
+    });
 
+  else   
+    exports.getImages( req, res );
+};

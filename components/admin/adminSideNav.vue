@@ -26,7 +26,7 @@
           Категории
         </vs-sidebar-item>
 
-        <vs-sidebar-item id="items" to="/admin/items">
+        <vs-sidebar-item id="item" to="/admin/item">
           <template #icon><i class='bx bx-task'></i></template>
           Товары
         </vs-sidebar-item>
