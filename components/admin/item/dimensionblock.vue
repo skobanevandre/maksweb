@@ -1,33 +1,25 @@
 <template>
-  <vs-row class="margin-top" justify="space-between" align="center" >
+      <vs-row class="margin-top" justify="space-between">
 
       <div class="v-center margin-right col">
-        <span>Стоимость:</span>
+        <span>Высота:</span>
         <vs-input type="number" style="width: 150px;" ></vs-input>
       </div>
 
       <div class="v-center margin-right col">
-        <span>Опт:</span>
+        <span>Ширина:</span>
         <vs-input type="number" style="width: 150px;" ></vs-input>
       </div>
 
       <div class="v-center margin-right col">
-        <span>Распродажа:</span>
+        <span>Глубина:</span>
         <vs-input type="number" style="width: 150px;" ></vs-input>
       </div>
 
       <div class="v-center margin-right col">
-        <span>Ликвидация:</span>
+        <span>Вес:</span>
         <vs-input type="number" style="width: 150px;" ></vs-input>
-      </div>
-
-      <div class="v-center margin-right col">
-        <vs-button icon shadow border >
-          <i class="bx bx-refresh" />
-        </vs-button>  
       </div>
 
     </vs-row>
 </template>
-
-

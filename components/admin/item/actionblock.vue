@@ -1,86 +1,50 @@
 <template>
-  <vs-row justify="space-between" align="center">
+  <vs-row justify="space-between" class="margin-top">
 
-    <vs-switch v-model="setActive" style="pointer-events: auto;">
-      <i class='bx bx-check-double'></i>
-    </vs-switch>
-
-    <vs-switch v-model="setIndexPage" style="pointer-events: auto;">На Главной</vs-switch>
-
-    <div>
-      <AdminItemActionInstock />
+    <div class="rowleft v-center margin-right">
+      <span class="margin-right">Активен:</span>
+      <vs-switch  v-model="itemActive" />
     </div>
 
-    <vs-checkbox style="pointer-events: auto;">Выбор</vs-checkbox>
+    <div class="rowleft v-center margin-right">
+      <span class="margin-right">На главной:</span>
+      <vs-switch v-model="itemIndexpage" />
+    </div>
+
+    <div class="rowleft v-center margin-right">
+      <span class="margin-right">В наличии:</span>
+      <vs-switch />
+    </div>
+
   </vs-row>
 </template>
 
 <script>
 export default {
-  props: [
-    'item'
-  ],
-
-  data() {
-    return {
-      active: Boolean( this.item.active ),
-      indexPage: Boolean( this.item.indexpage ),
-    }
+  model: {
+    prop: 'item',
+    event: 'change'
   },
 
-  computed: {
-    setActive: {
-      async set( val ) {
-        this.item.active = !this.item.active
-        await this.$axios.$put( `/item`, { item: this.item } );
-        this.$vs.notification({
-          position: 'top-right',
-          color: 'rgb(75,118,112)',
-          title:  
-            !this.item.active ? 
-              `Вы успешно деактивировали товар.`
-              :
-              `Вы успешно активировали товар.`,
-          text: 
-            !this.item.active ? 
-              `Следите за товаром надлезжайшим образом, ибо он может в очень скором времени понадобиться.`
-              :
-              `Теперь он будет показываться в списках категорий и возможно, если только очень этого захотитеи нажмете на соответствующую кнопку, то и на главной странице. Всего хорошоего до новых встреч.`,
-        })
-      },
+  computed:{
+    itemActive: {
       get() {
-        return this.active ;
+        return Boolean( this.$attrs.item.active );
+      },
+      set( val ) {
+        this.$attrs.item.active = Number( val );
       }
     },
 
-    setIndexPage: {
-      async set( val ) {
-        this.item.indexpage = !this.item.indexpage
-        await this.$axios.$put( `/item`, { item: this.item } );
-        this.$vs.notification({
-          position: 'top-right',
-          color: 'rgb(75,118,112)',
-          title:  
-            !this.item.indexpage ? 
-              `Теперь товар на главной странице.`
-              :
-              `Вы убрали товар с главной страницы.`,
-          text: 
-            !this.item.indexpage ? 
-              `Вы успешно поставили товар на отображение на главной странице. Теперь он будет там отображаться. .`
-              :
-              `Теперь товар не будет отображатьсся на главной странице. Больше так не делайте. Больше контента на главной - больше информации приходится читать. Запомните это. Искренне ваш - САЙТ !`,
-        })
-      },
+    itemIndexpage: {
       get() {
-        return this.indexPage;
+        return Boolean( this.$attrs.item.indexpage );
+      },
+      set( val ) {
+        this.$attrs.item.indexpage = Number( val );
       }
     }
+  },
 
-  }, // Computed
-
-  methods: {
-
-  }
 }
 </script>

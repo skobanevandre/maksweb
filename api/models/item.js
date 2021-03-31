@@ -1,17 +1,30 @@
 const db = require ( './../db' );
 
+
 /**
  * @param { } none 
  * @returns { JSON }
  * Получаем список всех товаров
  * Возвращает JSON 
  */
+
 export async function get( ) {
   let c = db.connect();
-  let r = await c.execute( 'select * from items' ) .then( ( [ result ] ) => { return result } );
-  c.end();  
-  return r;
-}
+
+  let items = await c.query( 'select * from items ' )
+    .then( ( [ result ] ) => { return result } );
+
+  let categories = await c.query( 'select c.article, cat.* from catitems c left join categories cat on c.category = cat.id', )
+    .then( ( [ result ] ) => { return result } );   
+    
+  c.end();    
+
+  for ( let item of items ) {
+    item.categories = categories.filter( ( { article } ) => article == item.article );
+  }
+
+  return items;
+} 
 
 /**
  * @param { int } articleId 
@@ -19,12 +32,18 @@ export async function get( ) {
  * Получаем товар
  * Возвращает JSON 
  */
-export async function find( articleId ) {
+export async function find( article ) {
   let c = db.connect();
-  let r = await c.execute( 'select * from items where article = ?', [ articleId ] )
-    .then( ( [ result ] ) => { return result } );
-  c.end();  
-  return r;
+
+    let item = await c.execute( 'select * from items where article = ?', [ article ] )
+      .then( ( [ result ] ) => { return result[0] } );
+
+    item.categories = await c.query( 'select c.article, cat.* from catitems c left join categories cat on c.category = cat.id where c.article = ?', [ article ] )
+      .then( ( [ result ] ) => { return result } );   
+    
+  c.end();    
+
+  return item;
 }
 
 

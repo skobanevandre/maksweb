@@ -1,0 +1,251 @@
+<template>
+  <div>
+    
+
+    <admin-item-actionblock />
+
+    <span class="title margin-top center">Наименование:</span>
+      <admin-item-titleblock />
+
+    <span class="title center margin-top">Состоит в категориях:</span>
+      <admin-item-categoriesblock />
+
+    <span class="title margin-top center">Изображение:</span>
+
+    <div class="title center margin-top">Стоимость:</div>
+      <admin-item-priceblock />
+
+    <span class="title center margin-top">Габариты:</span>
+      <admin-item-dimensionblock />
+
+    <span class="title margin-top center">Габариты упаковки:</span>
+      <admin-item-packdimensionblock />
+
+    <span class="title center margin-top">Описание:</span>
+
+    <div class="margin-top">
+      <admin-item-editor v-model="item.description" />
+    </div>
+
+    <div class="rowcenter">
+      <vs-button class="margin-top" size="large" style="font-weight: bold;">Сохранить</vs-button>
+    </div>  
+
+    <pre>
+      {{ $data }}
+    </pre>
+
+    <admin-item-imagealt v-model="altModal" :image="selectedImage"/> 
+
+  </div>
+
+</template>
+
+<script>
+import item from '@/mixins/item';
+
+export default {
+  layout:'admin',
+
+  mixins: [ item ],
+
+  data() {
+    return{
+      image: '',
+      itemCat: [],
+      altModal : false, 
+      selectedImage: {},
+    }
+  },
+
+  computed: { 
+    getImageUrl( img ) {
+      return '/images/item/' + this.article + '/' + img;
+    },
+
+    itemActive: {
+      get() {
+        if ( this.item.active ) 
+          return true 
+        else 
+          return false 
+      },
+      set( val ) {
+        this.item.active = val;
+      }
+    },
+
+    itemIndexpage: {
+      get() {
+        if ( this.item.indexpage ) 
+          return true 
+        else 
+          return false 
+      },
+      set( val ) {
+        this.item.indexpage = val;
+      }
+    },
+
+    setPrice: {
+      get() {
+        return this.item.price;
+      },
+      set( val ) {
+        this.item.wholesaleprice = this.fixPrice( this.calculatePrice( val, this.$store.state.settings.wholesalepricepercent ) );
+        this.item.saleprice = this.fixPrice( this.calculatePrice( val, this.$store.state.settings.salepricepercent ) );
+        this.item.licvidationprice = this.fixPrice( this.calculatePrice( val, this.$store.state.settings.licvidationpricepercent ) );
+        this.item.price = val;
+        return val;
+      }
+    },
+
+  },
+
+  methods: {
+
+    emm( val ) {
+      this.catArr = val;
+    },
+
+
+
+    async sendImage( image ) {
+      let fd = new FormData();
+      fd.append('image', image )
+      fd.append('article', this.item.article )
+
+      this.images = await this.$axios.$post( '/item/image/' + this.item.article, fd );
+    },
+
+    selectClick() {
+      console.log( this.$refs.imageSelect );
+      this.$refs.imageSelect.click();
+    }, 
+
+    handleImage( event ) {
+      let selectedImage = event.target.files[0];
+      this.sendImage( selectedImage );
+    },
+
+    async delImage( imageName ) {
+      /**
+       * Обязательно прикрутить модальное окно.
+       */
+
+      this.images = await this.$axios.$delete( '/item/image/' + this.item.article, 
+        { 
+          data: { image: imageName } 
+        } 
+      );
+    },
+
+    async altImage( imageName ) {
+
+
+    },
+  
+    setMainImage( imageName ) {
+      /**
+       * В Общем... При нажатии на кнопку - записываем в базу данную картинку
+       * При отрисовке будем сверяться с данными с базы.
+       * Если наименование совпадает - то ставим метку что она главная.
+       * 
+       * Потом, может Быть, сделаю так, что она будет отображаться первой.
+       */
+
+      this.item.image = '/images/item/' + this.item.article + '/' + imageName;
+    },
+
+    isMainImage( imageName ) {
+      if ( imageName == this.item.image.split('/').pop() ) 
+        return true;
+      else 
+        return false;  
+    },
+
+  },
+
+  async asyncData({ params, $axios }) {
+    const item = await $axios.$get( '/item/' + params.article );
+    const images = await $axios.$get( '/item/image/' + params.article );
+    const categories = await $axios.$get( `/category` );
+    return { 
+      'images' : images, 
+      'item' : item[0], 
+      'article' : params.article, 
+      'categories': JSON.parse( JSON.stringify( categories ) ) 
+    }; 
+  },
+
+  mounted() {
+    console.log( 'categories:', this.categories )
+  }
+ 
+}
+</script>
+
+<style scoped>
+
+  .imageSheet {
+    overflow-x: auto ;  
+    display: flex;
+    scroll-snap-type: x mandatory;
+
+    height: 250px;
+    background-color: #f4f7f8;
+    border-radius: 10px;
+  }
+
+  .imageContainer {
+    scroll-snap-align: start;
+    height: 200px;
+    position: relative;
+  }
+
+  .itemImg {
+    height: 100%;
+    border-radius: 10px;
+    margin: 10px;
+  }
+
+  .delImage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .altImage {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+  }
+
+  .mainImage {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  .fileButtonBlock {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .hidden {
+    width: 1px;
+    height: 1px;
+    display: none;
+    visibility: hidden;
+  }
+
+  .itemTitle { 
+    width:100%; 
+    margin-top: 10px;
+    font-size: 1.2em;
+  }
+
+
+
+</style>

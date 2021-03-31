@@ -1,8 +1,13 @@
 <template>
   <div class="container">
     <div class="a">
-      <adminSideNav class="sn"/>
-      <div class="ctn"><Nuxt /></div>
+
+      <adminSideNav class="sn" />
+
+      <div class="ctn">
+        <Nuxt />
+      </div>
+
     </div>
   </div>
 </template>
@@ -11,16 +16,14 @@
 .a{
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: flex-start;
 }
 
 .sn {
-  width: 25%;
+  width: 275px;
 }
 
 .ctn {
-  width: 74%;
+  width: 920px;
 }
 
 </style>

@@ -5388,7 +5388,7 @@
   position: fixed;
   left: 0px;
   top: 0px;
-  width: calc(100% - 50px);
+  /* width: calc(100% - 50px); */
   max-width: 260px;
   height: 100vh;
   border-radius: 0px 30px 30px 0px;

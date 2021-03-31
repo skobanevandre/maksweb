@@ -11,7 +11,6 @@ const categoryRouter = require("./routes/categoryRouter.js");
 const itemRouter = require("./routes/itemRouter.js");
 const settingsRouter = require("./routes/settingsRouter.js");
 
-
 const app = express();
 
 app.use( session({ secret: 'keyboard cat', resave: true, saveUninitialized: true,  path: '/azs/', httpOnly: true, secure: false, maxAge: null }) );
@@ -28,8 +27,18 @@ app.use( "/item", itemRouter );
 app.use( "/category", categoryRouter );
 app.use( "/settings", settingsRouter );
 
-
 app.get( '/', (req, res) => { res.send('main') } );
+
+app.get( '/testconnection', async (req, res) => { 
+  try {
+    await dbs.authenticate();
+    dbs.close();
+    res.send('Connection has been established successfully.');
+  } catch (error) {
+    console.log( 'error=', error )
+    res.send( 'ERROR' );
+  }
+} );
 
 module.exports = {
   path: '/api',

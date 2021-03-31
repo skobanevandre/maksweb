@@ -1,6 +1,6 @@
 const im = require('imagemagick');
-
 const fs = require('fs');
+const image = require( '../models/image' )
 
 const tempDir = 'static/images/item/tmp/';
 const destDir = 'static/images/item/';
@@ -29,27 +29,42 @@ exports.saveImage = ( req, res ) => {
 
     // Конвертируем изображение
 
-    im.convert([
-      upload,
-      tempDir + imageName + '.jpg'
-    ], function(err, stdout){
-      if (err) return res.status(400).json( { status: 'convert' } )
+    im.convert([ upload, '-resize', '800x', tempDir + imageName + '.jpg' ], 
+      function(err, stdout){
+        if (err) return res.status(400).json( { status: 'convert' } )
 
-      // Если нет нужной директории, то создаем ее  
-      if ( !fs.existsSync( destDir + req.params.article + '/' ) ) fs.mkdirSync( destDir + req.params.article + '/' );
+        // Если нет нужной директории, то создаем ее  
+        if ( !fs.existsSync( destDir + req.params.article + '/' ) ) fs.mkdirSync( destDir + req.params.article + '/' );
 
-      // Переносим изображение в нужную директорию      
-      fs.rename(
-        tempDir + imageName + '.jpg',
-        destDir + req.params.article + '/' + imageName + '.jpg', 
-        function (err){
-          if ( err ) return res.status(400).json( { status: 'rename', dest:  destDir + req.params.article + '/' + imageName + '.jpg' } );
+        // Переносим изображение в нужную директорию      
+        fs.rename(
 
-          //return res.json( { image: destDir + req.params.article + '/' + imageName + '.jpg', } )
-          exports.getImages( req, res );
-          
-      }); // fs.rename
-    }); // im.convert
+          tempDir + imageName + '.jpg',
+          destDir + req.params.article + '/' + imageName + '.jpg', 
+
+          function (err){
+            // Удаляем TMP картинку
+            if ( fs.existsSync( upload ) ) fs.unlinkSync( upload );
+
+            // Подготовливаем данные для сохранения в бд
+            let saveData = {
+              url : destDir + req.params.article + '/' + imageName + '.jpg', 
+              alt : '',
+              main : 0,
+              article : req.params.article 
+            }
+
+            // Кладем данные в БД
+            image.insert( saveData );           
+
+            if ( err ) return res.status(400).json( { status: 'rename', dest:  destDir + req.params.article + '/' + imageName + '.jpg' } );
+
+            //return res.json( { image: destDir + req.params.article + '/' + imageName + '.jpg', } )
+            exports.getImages( req, res );
+          }
+        ); // fs.rename
+      }
+    ); // im.convert
   }); // image.mv
 }; // exports.saveImage
 
@@ -72,7 +87,6 @@ exports.getImages = ( req, res ) => {
  * Артикул - в параметрах
  */
 exports.delImage = ( req, res ) => {
-  console.log( 'image = ' , req.body )
   if ( req.body.image ) 
     fs.unlink( destDir + req.params.article + '/' + req.body.image, 
     ( err ) => {

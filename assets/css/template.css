@@ -161,6 +161,18 @@ dd {
   margin-top: 20px;
 }
 
+.margin-bottom {
+  margin-bottom: 20px;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+}
+
 .v-center {
   display: flex;
   align-items: center;

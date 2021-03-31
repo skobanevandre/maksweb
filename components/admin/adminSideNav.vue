@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vs-sidebar relative open square v-model="active">
+    <vs-sidebar relative open v-model="active">
         <template #logo>
           <center><h2>АДМИНКА</h2></center>
           <img src="/images/template/logo.png">
@@ -41,11 +41,6 @@
           Настройки
         </vs-sidebar-item>
 
-        <vs-sidebar-item id="test">
-             <span @click="setClick"> TEST </span>
-        </vs-sidebar-item>
-
-
         <template #footer>
           <vs-row justify="space-between">
             <vs-avatar>
@@ -70,12 +65,6 @@ export default {
   data() {
     return {
       active: this.$route.path
-    }
-  },
-
-  methods: {
-    setClick() {
-      this.$router.push( { name: 'admin-testing', params: { id: '47' } } );
     }
   },
 
