@@ -7,8 +7,6 @@ const destDir = 'static/images/item/';
 
 
 /**
- *  
- * 
  *  План такой:
  *  Получаем от фронтенда файл. Сохраняем его с именем Текущего времени + расширение от полученного файла.
  *  Возвращаем сохраненное имя файла + путь.
@@ -45,22 +43,8 @@ exports.saveImage = ( req, res ) => {
           function (err){
             // Удаляем TMP картинку
             if ( fs.existsSync( upload ) ) fs.unlinkSync( upload );
-
-            // Подготовливаем данные для сохранения в бд
-            let saveData = {
-              url : destDir + req.params.article + '/' + imageName + '.jpg', 
-              alt : '',
-              main : 0,
-              article : req.params.article 
-            }
-
-            // Кладем данные в БД
-            image.insert( saveData );           
-
             if ( err ) return res.status(400).json( { status: 'rename', dest:  destDir + req.params.article + '/' + imageName + '.jpg' } );
-
-            //return res.json( { image: destDir + req.params.article + '/' + imageName + '.jpg', } )
-            exports.getImages( req, res );
+            return res.send( '/images/item/' + req.params.article + '/' + imageName + '.jpg' );
           }
         ); // fs.rename
       }

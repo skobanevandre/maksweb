@@ -9,6 +9,7 @@ const testRouter = require("./routes/testRouter.js");
 const authRouter = require("./routes/authRouter.js");
 const categoryRouter = require("./routes/categoryRouter.js");
 const itemRouter = require("./routes/itemRouter.js");
+const imageRouter = require("./routes/imageRouter.js");
 const settingsRouter = require("./routes/settingsRouter.js");
 const otherRouter = require("./routes/otherRouter.js");
 
@@ -28,6 +29,7 @@ app.use( "/item", itemRouter );
 app.use( "/category", categoryRouter );
 app.use( "/settings", settingsRouter );
 app.use( "/other", otherRouter );
+app.use( "/image", imageRouter );
 
 app.get( '/', (req, res) => { res.send('main') } );
 

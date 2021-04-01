@@ -6,22 +6,62 @@
           :key = "i"      
           class="imageContainer" >  
             <admin-item-image v-model="$attrs.item.images[i]" :titleimage="$attrs.item.titleimage" @newtitleimage="setTitleImage"/>          
+
+            <vs-button icon shadow size="small" class="delImage" @click="delImage( i )">
+              <i class='bx bx-x'></i>
+            </vs-button>
+
+        </div>
+        <div class="imageContainer">
+          <vs-button flat border class="plusButton" @click="$refs.imageSelect.click()">
+            <i class="bx bx-plus" />
+          </vs-button>
         </div>
       </div>
 
       <div class="fileButtonBlock">
         <input type="file" ref="imageSelect" @change="handleImage" accept="image/*" class="hidden"/>
-        <vs-button  @click="$refs.imageSelect.click();" >Добавить изображение</vs-button>
       </div>  
+
+      <vs-dialog width="300px" prevent-close v-model="dialog">
+        
+        <template #header>
+          <h4>Удалить картинку?</h4>
+        </template>
+
+        <img :src="dialogImage" width = "250" class="center">
+
+        <template #footer>
+          <vs-row justify="flex-end">
+            <vs-button @click="$attrs.item.images.splice( dialogItem, 1 ); dialog=false;" class="margin-right">
+              Удалить
+            </vs-button>
+
+            <vs-button @click="dialog=false;">
+              Отмена
+            </vs-button>
+          </vs-row>
+
+        </template> 
+      </vs-dialog>
+
     </div>
 </template>
 
 <script>
 export default {
+
+  data() {
+    return {
+      dialog: false,
+      dialogImage: "",
+      dialogItem: -1,
+    }
+  },
+
   model: {
     prop: "item"
   },
-
 
   methods: {
     setTitleImage( img ) {
@@ -31,6 +71,21 @@ export default {
     handleImage( event ) {
       let selectedImage = event.target.files[0];
       this.sendImage( selectedImage );
+    },
+
+    async sendImage( image ) {
+      let fd = new FormData();
+      fd.append('image', image )
+      fd.append('article', this.$attrs.item.article )
+
+      this.$attrs.item.images.push( { url: await this.$axios.$post( '/image/' + this.$attrs.item.article, fd ), alt:""  } );
+    },
+
+    delImage( i ) {
+
+      this.dialogImage = this.$attrs.item.images[ i ].url;
+      this.dialogItem = i;
+      this.dialog = true;
     },
   },
 
@@ -66,6 +121,19 @@ export default {
     height: 1px;
     display: none;
     visibility: hidden;
+  }
+
+  .plusButton {
+    align-items: center;
+    height: 190px;
+    font-weight: bold;
+    font-size: 3em;
+  }
+
+   .delImage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 
 </style>

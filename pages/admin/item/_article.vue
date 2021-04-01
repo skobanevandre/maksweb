@@ -25,10 +25,11 @@
     <span class="title center margin-top margin-bottom">Описание:</span>
       <admin-item-editor v-model="item" />
 
-    
+    <vs-row justify="flex-end">
+      <vs-button size="large" @click="updateItem">Сохранить</vs-button>
+      <vs-button size="large" @click="$router.go(-1)">Отмена</vs-button>
+    </vs-row>  
 
-
-    <pre> {{ $data }} </pre>
   </div>  
 </template>
 
@@ -42,6 +43,13 @@ export default {
       'item' : item, 
     }; 
   },
+
+  methods: {
+    async updateItem() {
+      let r = await this.$axios.$put( '/item/', this.item );
+      this.$router.go();
+    }
+  }
 
 }
 </script>
