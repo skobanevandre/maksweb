@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 const connectionProperties = {
     connectionLimit: 5,
@@ -9,5 +9,5 @@ const connectionProperties = {
   };
 
 exports.connect = function() { 
-    return mysql.createConnection( connectionProperties ).promise();
+    return mysql.createConnection( connectionProperties );
 };  

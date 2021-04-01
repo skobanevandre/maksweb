@@ -33,12 +33,16 @@ export async function get( ) {
  * Возвращает JSON 
  */
 export async function find( article ) {
-  let c = db.connect();
+  let c = await db.connect();
 
-    let item = await c.execute( 'select * from items where article = ?', [ article ] )
+  console.log( 'itemFind' );
+
+    let item = await c.query( 'select * from items where article = ?', [ article ] )
       .then( ( [ result ] ) => { return result[0] } );
 
-    item.categories = await c.query( 'select c.article, cat.* from catitems c left join categories cat on c.category = cat.id where c.article = ?', [ article ] )
+      console.log( 'ITEM = ', item );
+
+    item.categories = await c.query( 'select cat.* from catitems c left join categories cat on c.category = cat.id where c.article = ?', [ article ] )
       .then( ( [ result ] ) => { return result } );   
     
   c.end();    

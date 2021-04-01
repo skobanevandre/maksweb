@@ -4,9 +4,18 @@ const db = require ( './../db' );
  * Получаем список всех категорий
  * @returns { JSON }
  */
-export async function get() {
+/* export async function get() {
   let c = db.connect();
     let r = await c.execute( 'select c.*, p.name as parentname from categories c left join categories as p on c.parentcategory = p.id ' )
+    // .then( ( [ result ] ) => { return JSON.parse( JSON.stringify( result )) } );
+    .then( ( [ result ] ) => { return result } );
+  c.end();
+  return r;
+} */
+
+export async function get() {
+  let c = await db.connect();
+    let r = await c.query( 'select * from categories' )
     // .then( ( [ result ] ) => { return JSON.parse( JSON.stringify( result )) } );
     .then( ( [ result ] ) => { return result } );
   c.end();

@@ -4,15 +4,17 @@
 
     <admin-item-actionblock v-model="item" />
 
-    <span class="title margin-top center">Состоит в категориях:</span>
-
     <span class="title margin-top center">Наименование:</span>
       <admin-item-titleblock v-model="item" />
 
+    <span class="title margin-top center">Состоит в категориях:</span>
+      <admin-item-categoriesblock v-model="item" />
+
     <span class="title margin-top center">Изображения:</span>
+      <admin-item-imageblock v-model="item" />
 
     <div class="title center margin-top">Стоимость:</div>
-      <admin-item-priceblock />
+      <admin-item-priceblock v-model="item" />
 
     <span class="title center margin-top">Габариты:</span>
       <admin-item-dimensionblock v-model="item" />

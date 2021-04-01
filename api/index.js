@@ -10,6 +10,7 @@ const authRouter = require("./routes/authRouter.js");
 const categoryRouter = require("./routes/categoryRouter.js");
 const itemRouter = require("./routes/itemRouter.js");
 const settingsRouter = require("./routes/settingsRouter.js");
+const otherRouter = require("./routes/otherRouter.js");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use( "/auth", authRouter );
 app.use( "/item", itemRouter );
 app.use( "/category", categoryRouter );
 app.use( "/settings", settingsRouter );
+app.use( "/other", otherRouter );
 
 app.get( '/', (req, res) => { res.send('main') } );
 

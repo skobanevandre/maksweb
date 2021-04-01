@@ -12,8 +12,7 @@
     </div>
 
     <div class="rowleft v-center margin-right">
-      <span class="margin-right">В наличии:</span>
-      <vs-switch />
+      <admin-item-instock v-model="$attrs.item" /> 
     </div>
 
   </vs-row>
@@ -23,7 +22,6 @@
 export default {
   model: {
     prop: 'item',
-    event: 'change'
   },
 
   computed:{
