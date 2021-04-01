@@ -25,7 +25,7 @@
     <span class="title center margin-top margin-bottom">Описание:</span>
       <admin-item-editor v-model="item" />
 
-    <vs-row justify="flex-end">
+    <vs-row justify="flex-end" class="margin-top margin-bottom">
       <vs-button size="large" @click="updateItem">Сохранить</vs-button>
       <vs-button size="large" @click="$router.go(-1)">Отмена</vs-button>
     </vs-row>  
