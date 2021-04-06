@@ -12,9 +12,22 @@ itemRouter.get('/', async function(req, res){
   res.send( r )
 });
 
+
+/**
+ * Редактирование товара
+ */
 itemRouter.put('/', async function(req, res) {
   // console.log( 'ITEM REQ: ', req );
   let r = await item.update( req.body );
+  res.send( { 'sucess': true } )
+});
+
+/**
+ * Добавление товара
+ */
+ itemRouter.post('/', async function(req, res) {
+  // console.log( 'ITEM REQ: ', req );
+  let r = await item.insert( req.body );
   res.send( { 'sucess': true } )
 });
 
@@ -23,6 +36,11 @@ itemRouter.put('/', async function(req, res) {
  */
 itemRouter.get('/:articleId', async function(req, res){
   let r = await item.find( req.params.articleId );
+  res.send( r )
+});
+
+itemRouter.delete('/:articleId', async function(req, res){
+  let r = await item.del( req.params.articleId );
   res.send( r )
 });
 

@@ -7,8 +7,8 @@ const db = require ( './../db' );
  * Возвращает JSON 
  */
 export async function insert( image ) {
-  let c = db.connect();
-  let r = await c.execute( 'insert into images set article = ?, url = ?, alt = ?, main = ?', 
+  let c = await db.connect();
+  let r = await c.query( 'insert into images set article = ?, url = ?, alt = ?, main = ?', 
     [ image.article, image.url, image.alt, image.main] )
     .then( ( [ result ] ) => { return result } );
   c.end();  
@@ -16,16 +16,16 @@ export async function insert( image ) {
 }
 
 export async function updateAlt( image ) {
-  let c = db.connect();
-  let r = await c.execute( 'update images set alt = ?', [ image.alt ] )
+  let c = await db.connect();
+  let r = await c.query( 'update images set alt = ?', [ image.alt ] )
     .then( ( [ result ] ) => { return result } );
   c.end();  
   return r;
 }
 
 export async function updateMain( image ) {
-  let c = db.connect();
-  let r = await c.execute( 'update images set main = ?', [ image.main ] )
+  let c = await db.connect();
+  let r = await c.query( 'update images set main = ?', [ image.main ] )
     .then( ( [ result ] ) => { return result } );
   c.end();  
   return r;

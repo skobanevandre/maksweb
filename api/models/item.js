@@ -9,7 +9,7 @@ const db = require ( './../db' );
  */
 
 export async function get( ) {
-  let c = db.connect();
+  let c = await db.connect();
 
   let items = await c.query( 'select * from items ' )
     .then( ( [ result ] ) => { return result } );
@@ -68,7 +68,6 @@ export async function update( item ) {
       JSON.stringify( item.dimensions ),
       JSON.stringify( item.images ),
       item.titleimage,
-//       JSON.stringify( item.categories ),
       JSON.stringify( item.ordered ), 
       item.article 
     ] );
@@ -91,4 +90,61 @@ export async function update( item ) {
 
   c.end();  
   return r;
+}
+
+
+export async function insert( item ) {
+
+  let c = await db.connect();
+  
+  let article = await c.query( 'select max( article )+1 as max from items' )
+    .then( ( [ result ] ) => { return result[0] } );   
+
+  article = String( article.max ).padStart( 8, 0 );
+
+  item.indexpage = 0;
+  item.active = 0;
+    
+  let r = await c.query( 'insert into items set article=?, title=?, description=?, price=?, indexpage=?, active=?, dimensions=?, images=?, titleimage=?, ordered=?',
+    [ 
+      article,
+      item.title,
+      item.description,
+      JSON.stringify( item.price ),
+      item.indexpage,
+      item.active,
+      JSON.stringify( item.dimensions ),
+      JSON.stringify( item.images ),
+      item.titleimage,
+      JSON.stringify( item.ordered ), 
+      item.article 
+    ] );
+
+  if ( item.categories )  {
+
+    let data = [];
+
+    for ( let category of item.categories ) {
+      let row=[];
+      row.push( category.id );
+      row.push( article );
+      data.push( row );
+    }
+    
+    if ( data.length > 0) await c.query( 'insert into catitems ( category, article ) values ?', [ data ] );  
+  }
+
+  c.end();  
+  return r;
+}
+
+/**
+ * Удаление 
+ */
+export async function del( item ) {
+  let c = await db.connect();
+    await c.query( 'delete from items where article=?', [ item ] );
+    await c.query( 'delete from catitems where article=?', [ item ] );
+  c.end();  
+  return 'true';
 }

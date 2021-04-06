@@ -1,33 +1,33 @@
 const express = require("express");
-const itemRouter = express.Router();
+const imageRouter = express.Router();
 
 const fileUpload = require('express-fileupload');
 
 const imageController = require('../controllers/imageController');
 
-itemRouter.use( fileUpload() ); // Позволяет получать файлы бекенду.
-itemRouter.use( express.text() ); 
+imageRouter.use( fileUpload() ); // Позволяет получать файлы бекенду.
+imageRouter.use( express.text() ); 
 
-const item = require( './../models/item' );
-const db = require( './../db' );
+// const item = require( './../models/item' );
+// const db = require( './../db' );
 
   /**
    * Сохраняем картинку.
    * Возврат - получение массива местоположения картинок
    */
 
-itemRouter.post( '/:article', imageController.saveImage );
+imageRouter.post( '/:article', imageController.saveImage );
 
 
 /**
  * Получаем картинки
  */
-itemRouter.get('/:article', imageController.getImages );
+imageRouter.get('/:article', imageController.getImages );
 
 /**
  * Удаление картинки
  */
- itemRouter.delete('/:article', imageController.delImage );
+imageRouter.delete('/:article', imageController.delImage );
 
 
-module.exports = itemRouter;
+module.exports = imageRouter;

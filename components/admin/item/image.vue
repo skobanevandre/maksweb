@@ -4,12 +4,6 @@
       :src = "$attrs.image.url" 
       :alt = "$attrs.image.alt"
       class = "itemImg" > 
-
-<!--  
-      <vs-button icon shadow size="small" class="delImage" @click="delImage( $attrs.image.url )">
-        <i class='bx bx-x'></i>
-      </vs-button> 
--->
         
       <vs-button icon :shadow = "isMain" size="small" class="mainImage" @click="setMainImage( $attrs.image.url )">
         <i class='bx bx-star'></i>

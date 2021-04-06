@@ -8,7 +8,8 @@ const db = require ( './../db' );
  */
 export async function get( ) {
   let c = await db.connect();
-    let r = await c.query( 'select * from settings' ) .then( ( [ result ] ) => { return result[0] } );
+    let r = await c.query( 'select * from settings' ) 
+      .then( ( [ result ] ) => { return result[0] } );
   c.end();  
   return r;
 }
@@ -21,7 +22,7 @@ export async function get( ) {
  */
  export async function updatePricingPercentage( data ) {
   let c = await db.connect();
-    let r = await c.execute( 'update settings set wholesalepricepercent = ?, salepricepercent = ?, licvidationpricepercent = ?' ,
+    let r = await c.query( 'update settings set wholesalepricepercent = ?, salepricepercent = ?, licvidationpricepercent = ?' ,
       [ data.wholesalepricepercent, data.salepricepercent, data.licvidationpricepercent ] )
       .then( ( [ result ] ) => { return result } );
   c.end();  

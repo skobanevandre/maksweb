@@ -4,23 +4,27 @@ const db = require ( './../db' );
  * Получаем список всех категорий
  * @returns { JSON }
  */
-/* export async function get() {
-  let c = db.connect();
-    let r = await c.execute( 'select c.*, p.name as parentname from categories c left join categories as p on c.parentcategory = p.id ' )
-    // .then( ( [ result ] ) => { return JSON.parse( JSON.stringify( result )) } );
-    .then( ( [ result ] ) => { return result } );
-  c.end();
-  return r;
-} */
-
 export async function get() {
   let c = await db.connect();
     let r = await c.query( 'select * from categories' )
-    // .then( ( [ result ] ) => { return JSON.parse( JSON.stringify( result )) } );
     .then( ( [ result ] ) => { return result } );
   c.end();
   return r;
 }
+
+/**
+ * Получаем объект конкретной категории.
+ * @param { INTEGER } id 
+ * @returns { JSON }CATEGORY OBJECT
+ */
+export async function getOne( id ) {
+  let c = await db.connect();
+    let r = await c.query( 'select * from categories where id=?', [ id ] )
+    .then( ( [ result ] ) => { return result } );
+  c.end();
+  return r;
+}
+
          
 /**
  * @param { JSON } category 
@@ -29,9 +33,18 @@ export async function get() {
  * Возвращает true || false
  */
 export async function edit( category ) {
-  let c = db.connect();
-  let r = await c.query( 'update categories set name=?, parentcategory=?, description=? where id=?', 
-    [ category.name, category.parentcategory, category.description, category.id ] )
+  let c = await db.connect();
+  let r = await c.query( 'update categories set name=?, parentcategory=?, description=?, image=?, active=?, indexpage=?, imagealt=? where id=?', 
+    [ 
+      JSON.stringify( category.name ), 
+      category.parentcategory, 
+      JSON.stringify( category.description ), 
+      JSON.stringify( category.image ), 
+      category.active, 
+      category.indexpage, 
+      JSON.stringify( category.imagealt ), 
+      category.id 
+    ] )
     .then( result => { return { success: true } } );
   c.end();  
   return r;

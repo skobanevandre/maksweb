@@ -12,6 +12,11 @@ categoryRouter.get('/', async (req, res) => {
   res.json( r );  
 });
 
+categoryRouter.get('/:id', async (req, res) => {
+  let r = await category.getOne( req.params.id );
+  res.json( r );  
+});
+
 /**
  * Редактирование категории.
  * Метод - PUT

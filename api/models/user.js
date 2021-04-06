@@ -8,8 +8,8 @@ const jwt = require('jsonwebtoken');
  * Возвращает JSON пользователя вместе с паролем
  */
 export async function getByName ( username ) {
-		let c = db.connect();
-		let validUser = await c.execute( 'select * from user where username = ?', [ username ] )
+		let c = await db.connect();
+		let validUser = await c.query( 'select * from user where username = ?', [ username ] )
 					.then ( ( [ result ] ) => { return result[0] } )
 		c.end(); 
 		return validUser;
@@ -21,8 +21,8 @@ export async function getByName ( username ) {
  */
 export async function save ( user ) {
   const hashedPassword = await argon2.hash( user.password );
-  let c = db.connect();
-    let r = await c.execute( 'insert into user set name = ?, username = ?, password = ?, email = ?' , 
+  let c = await db.connect();
+    let r = await c.query( 'insert into user set name = ?, username = ?, password = ?, email = ?' , 
 			[ user.name, user.username, hashedPassword, user.email ] )
   c.end();
   return r;
