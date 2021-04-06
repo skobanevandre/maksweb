@@ -15,7 +15,6 @@
       </div>
     </span>
 
-    <pre> {{ $data }}  </pre>
   </div>  
 </template>
 
