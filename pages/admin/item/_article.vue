@@ -6,7 +6,7 @@
 
     <vs-row justify="flex-end" align="center" class="margin-bottom">
       <vs-button @click="saveDialog=true;">Сохранить</vs-button>
-      <vs-button @click="$router.go(-1)">Отмена</vs-button>
+      <vs-button @click="$router.push('/admin/item/');">Отмена</vs-button>
     </vs-row>
       
 
@@ -42,8 +42,8 @@
 
       <template #footer>
         <vs-row justify="flex-end">
-          <vs-button @click="updateItem(); saveDialog=false; $router.go();">Продолжить</vs-button>
-          <vs-button @click="updateItem(); saveDialog=false; $router.go(-1);">Выйти</vs-button>       
+          <vs-button @click="updateItem(); saveDialog=false;">Продолжить</vs-button>
+          <vs-button @click="updateItem(); saveDialog=false; $router.push('/admin/item/');">Выйти</vs-button>       
         </vs-row>
       </template>
 

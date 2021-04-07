@@ -135,7 +135,7 @@ export async function insert( item ) {
   }
 
   c.end();  
-  return r;
+  return article;
 }
 
 /**

@@ -79,6 +79,8 @@ export default {
       fd.append('article', this.$attrs.item.article )
 
       this.$attrs.item.images.push( { url: await this.$axios.$post( '/image/' + this.$attrs.item.article, fd ), alt:""  } );
+      if ( this.$attrs.item.images.length == 1 ) 
+        this.$attrs.item.titleimage = this.$attrs.item.images[0].url;
     },
 
     delImage( i ) {

@@ -21,13 +21,15 @@ imageRouter.post( '/:article', imageController.saveImage );
 
 /**
  * Получаем картинки
- */
+ 
 imageRouter.get('/:article', imageController.getImages );
+*/
 
 /**
  * Удаление картинки
- */
+
 imageRouter.delete('/:article', imageController.delImage );
+ */
 
 
 module.exports = imageRouter;

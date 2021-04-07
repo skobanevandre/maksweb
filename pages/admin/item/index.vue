@@ -137,8 +137,8 @@ export default {
   methods: {
 
     async newItem( ) {
-      await this.$axios.$post( '/item/', this.emptyItem() );
-      this.$router.go();
+      let newArticle = await this.$axios.$post( '/item/', this.emptyItem() );
+      this.$router.push( '/admin/item/' +  newArticle.article );
     },
 
     editHref( article ) {

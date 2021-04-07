@@ -28,7 +28,7 @@ itemRouter.put('/', async function(req, res) {
  itemRouter.post('/', async function(req, res) {
   // console.log( 'ITEM REQ: ', req );
   let r = await item.insert( req.body );
-  res.send( { 'sucess': true } )
+  res.send( { 'article': r } )
 });
 
 /**

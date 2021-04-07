@@ -1,6 +1,6 @@
 const im = require('imagemagick');
 const fs = require('fs');
-const image = require( '../models/image' )
+// const image = require( '../models/image' )
 
 const tempDir = 'static/images/item/tmp/';
 const destDir = 'static/images/item/';
@@ -69,7 +69,7 @@ exports.getImages = ( req, res ) => {
 /**
  * Удаляем картинку. Картинка находится в теле запроса. 
  * Артикул - в параметрах
- */
+ 
 exports.delImage = ( req, res ) => {
   if ( req.body.image ) 
     fs.unlink( destDir + req.params.article + '/' + req.body.image, 
@@ -79,4 +79,4 @@ exports.delImage = ( req, res ) => {
 
   else   
     exports.getImages( req, res );
-};
+}; */
