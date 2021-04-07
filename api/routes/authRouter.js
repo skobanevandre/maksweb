@@ -44,7 +44,7 @@ passport.serializeUser(function( validUser, done ) {
 passport.deserializeUser( 
   async function( id, done ) {
     console.log( 'deserializeUser, id=',  id );
-    let c = db.connect();
+    let c = await db.connect();
     console.log( 'connected' );
     let validUser = await c.query( 'select * from user where id = ?', [ id ] )
           .then ( ( [ result ] ) => { return result[0] })

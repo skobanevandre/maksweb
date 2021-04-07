@@ -11,7 +11,7 @@ const db = require ( './../db' );
 export async function get( ) {
   let c = await db.connect();
 
-  let items = await c.query( 'select * from items ' )
+  let items = await c.query( 'select * from items order by article desc' )
     .then( ( [ result ] ) => { return result } );
 
   let categories = await c.query( 'select c.article, cat.* from catitems c left join categories cat on c.category = cat.id', )

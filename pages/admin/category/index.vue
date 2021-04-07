@@ -9,7 +9,7 @@
           <i class="bx bx-plus" style="margin-right: 10px;"/>
           Добавить
         </vs-button>
-        <vs-button flat :disabled=!selected @click="editCategoryClick( selected )">
+        <vs-button flat :disabled=!selected @click="$router.push( '/admin/category/' + selected.id )">
           <i class="bx bx-edit" style="margin-right: 10px;"/>
           Редактировать
         </vs-button>
@@ -127,49 +127,6 @@
         </div>  
       </template>      
     </vs-dialog>  
-
-    <!-- Редактирование -->
-
-    <vs-dialog prevent-close v-model="editDialog" blur width="100%">
-      <template #header>
-        Редактироваие категории {{ editSelected.name }}
-      </template>
-
-      <div style="padding: 30px 30px 0 30px;">
-        <vs-input label-placeholder="Наименование" v-model="editSelected.name"  style=" margin-bottom: 40px;"/>
-        
-        <vs-select 
-          label-placeholder="Родительская категория" 
-          v-model="editSelected.parentcategory" 
-          style=" margin-bottom: 40px; width: 100%;"
-        >
-          <vs-option 
-            v-for = "sel_category in categories"
-            :label = "sel_category.name" 
-            :value = "sel_category.id"
-            :key = "sel_category.id" 
-          >
-            {{ sel_category.name }}
-          </vs-option>
-        </vs-select>
-
-        <vs-input type="textarea" label-placeholder="Описание" v-model="editSelected.description"  style=" margin-bottom: 40px;"/>
-      </div>
-
-      <template #footer>
-        <div class="rowright">
-          <vs-button @click="editCategory( editSelected )"> 
-            <i class="bx bx-check" style="margin-right: 10px;"/>
-            Применить
-          </vs-button>
-          <vs-button @click="editDialog=false">
-            <i class="bx bx-x" style="margin-right: 10px;"/>
-            Отмена
-          </vs-button>
-        </div>  
-      </template>      
-    </vs-dialog>  
-
 
     <pre>{{ selected }} </pre>
 
