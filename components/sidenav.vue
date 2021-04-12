@@ -1,21 +1,10 @@
 <template>
-  <div>
+  <div class="margin-top">
+    <vs-row class="topBlock" justify="center" align="center">
+      КАТАЛОГ ТОВАРОВ
+    </vs-row>
+
     <vs-sidebar relative open notShadow v-model="active">
-
-      <template #logo>
-        <img src="/images/template/logo.png">
-
-        <vs-row justify="center" class="margin-top">
-          <vs-button icon >
-            <i class='bx bx-cart' style="font-size: 1.5em;" />
-          </vs-button>
-
-          <vs-button icon >
-            <i class='bx bx-user' style="font-size: 1.5em;" />
-          </vs-button>
-        </vs-row>
-
-      </template>
 
       <vs-sidebar-group 
         v-for = "( category, i ) in navCategories"
@@ -96,3 +85,13 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  .topBlock {
+    background-color: #7c483c;
+    color: white;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+</style>

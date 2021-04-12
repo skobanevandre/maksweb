@@ -2,11 +2,10 @@
   <div>
 
     <header>
-      <div class="container headercontainer">
+      <div class="container">
+        <header-default />
       </div>  
     </header>
-
-      <topnav />
     
     <div class="container maincontainer">
       <nav>
@@ -17,6 +16,7 @@
 
       <main>
         <div class="content">
+          <topnav />
           <Nuxt />
         </div>  
       </main>  
