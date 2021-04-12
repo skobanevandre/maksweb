@@ -68,7 +68,7 @@ export default {
   methods: {
 
     setMainImage( img ) {
-      console.log( 'mainImage=', img )
+      // console.log( 'mainImage=', img )
       this.$emit( 'newtitleimage', img );
       // this.$props.titleimage = img;
     },

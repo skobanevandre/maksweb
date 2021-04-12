@@ -3,7 +3,7 @@
     <span 
       v-for="( category, i) in categories "
       :key="i"
-    > {{ category.name }}
+    > <span class="title"> {{ category.name }} </span>
       <div class="cards">
         <card 
           v-for="( item, j) in category.items"
@@ -32,7 +32,7 @@ export default {
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 </style>
 

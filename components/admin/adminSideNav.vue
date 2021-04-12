@@ -69,7 +69,7 @@ export default {
   },
 
   mounted() {
-    console.log( this.$auth );
+    // console.log( this.$auth );
   }
 }
 </script>

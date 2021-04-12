@@ -33,9 +33,11 @@ export async function save ( user ) {
  * @param { JSON } user 
  * @returns Token
  */
- export function generateToken( validUser ) {
+export async function generateToken( validUser ) {
+  console.log( 'Создаем Токен для пользователя' );
   const signature = 'oOG1rAK_VP9fhtVDd1bu';
-  let expireTime = 120;
-  let sign = jwt.sign( { username: validUser.username }, signature, { expiresIn: expireTime } );
+  let expireTime = '1d';
+  let sign = await jwt.sign( { username: validUser.username }, signature, { expiresIn: expireTime } );
+  console.log( 'Токен создан:', sign );
   return sign;
 }

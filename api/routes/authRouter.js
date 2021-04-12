@@ -14,7 +14,6 @@ authRouter.use( cookieParser() );
 authRouter.use( passport.initialize() );
 authRouter.use( passport.session() );
 
-
 /**
  * Local Стратегия для Passport.js
  * Берет из POST запроса на логин пользователя учетные данные, 
@@ -34,7 +33,7 @@ authRouter.use( passport.session() );
  * вообще не понятно зачем нужна данная функция
  */
 passport.serializeUser(function( validUser, done ) {
-  console.log( 'serializeUser', validUser );
+  // console.log( 'serializeUser', validUser );
   done( null, validUser.id );
 });
 
@@ -43,12 +42,12 @@ passport.serializeUser(function( validUser, done ) {
  */
 passport.deserializeUser( 
   async function( id, done ) {
-    console.log( 'deserializeUser, id=',  id );
+    // console.log( 'deserializeUser, id=',  id );
     let c = await db.connect();
-    console.log( 'connected' );
+    // console.log( 'connected' );
     let validUser = await c.query( 'select * from user where id = ?', [ id ] )
           .then ( ( [ result ] ) => { return result[0] })
-    console.log( 'Query result:', validUser )
+    // console.log( 'Query result:', validUser )
     c.end();  
     done( null, validUser );
   }
@@ -69,13 +68,17 @@ authRouter.post('/login', passport.authenticate( 'local' ), async ( req, res ) =
  * Проверяем есть ли такой пользователь и выдаем полную инфу, Исключая пароль.
  */
 authRouter.get( '/user', async ( req, res ) => {
+  // console.log ( 'Проверяем, существует ли токен у пользователя' )
   if ( req.cookies[ 'auth._token.local' ] !== 'false' ) {
+    // console.log ( 'Если существует, то надо его авторизировать' )
     var tokenData = jwt.verify( req.cookies[ 'auth._token.local' ], 'oOG1rAK_VP9fhtVDd1bu' );
     let currentUser = await user.getByName( tokenData.username );
     delete currentUser.password;
     res.json( currentUser );
-  } else   
+  } else {
+    // console.log ( 'Токена не существует, отправляем false' )
     res.send( false );    
+  }  
 } )
 
 /**

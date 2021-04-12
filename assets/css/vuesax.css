@@ -5145,8 +5145,8 @@
   top: 0px;
   left: 0px;
   width: 100%;
-  border-radius: 0px 0px 15px 15px;
-  background: rgba(var(--vs-color), 1);
+  /* border-radius: 0px 0px 15px 15px;
+  background: rgba(var(--vs-color), 1); */
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   color: rgba(var(--vs-text), 1);
@@ -5519,10 +5519,11 @@
   padding: 25px 0px;
   min-height: 80px;
 }
+
 .vs-sidebar-content .vs-sidebar__logo img {
-  max-width: 120px;
-  max-height: 35px;
+  max-width: 80%;
 }
+
 .vs-sidebar-content .vs-sidebar {
   overflow-x: hidden;
   width: 100%;
@@ -5591,7 +5592,9 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
   position: relative;
-  color: rgba(var(--vs-text), 1);
+  /* color: rgba(var(--vs-text), 1); */
+  color: rgb(71, 71, 71);
+
   border: 0px;
 }
 .vs-sidebar__item.hasIcon {
@@ -5941,7 +5944,10 @@
   background: rgba(var(--vs-background), 1);
   color: rgba(var(--vs-text), 1);
   width: 100%;
-  max-width: 215px;
+  /* max-width: 290px; */
+  
+  max-width: 210px;
+
   -webkit-box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, var(--vs-shadow-opacity));
           box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, var(--vs-shadow-opacity));
   border-radius: 10px;

@@ -23,15 +23,21 @@
       <div class="datablock">
 
         <vs-row justify="flex-start" align="center">
-          <vs-row justify="flex-start" style="width: 49%;" align="center">
+          <vs-row justify="flex-start" style="width: 33%;" align="center">
             <span style="margin-right: 20px;">Активно:</span>
             <vs-switch v-model="active"></vs-switch>
           </vs-row>
 
-          <vs-row justify="flex-start" style="width: 49%;" align="center">
+          <vs-row justify="flex-start" style="width: 33%;" align="center">
             <span style="margin-right: 20px;">На главной:</span>
             <vs-switch v-model="indexpage"></vs-switch>
           </vs-row>  
+
+          <vs-row justify="flex-start" style="width: 33%;" align="center">
+            <span style="margin-right: 20px;">В меню:</span>
+            <vs-switch v-model="menu"></vs-switch>
+          </vs-row> 
+
         </vs-row>
 
         <span class="title margin-top center">Наименование категории:</span>
@@ -146,6 +152,16 @@ export default {
         this.category.indexpage = Number( val );
       }
     },
+
+    menu: {
+      get() {
+        return Boolean( this.category.menu );
+      },
+      set( val ){
+        this.category.menu = Number( val );
+      }
+    },
+
   },
 
   methods: {

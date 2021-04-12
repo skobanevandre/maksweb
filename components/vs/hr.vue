@@ -5,7 +5,7 @@
 <style scoped>
   .hr {
     border: none;
-    border-bottom: 1px dotted #ccc;
-    margin: 20px 30px;
+    border-bottom: 1px dotted silver;
+    margin: 20px;
   }
 </style>

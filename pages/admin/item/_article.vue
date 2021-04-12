@@ -70,7 +70,7 @@ export default {
 
   methods: {
     async updateItem() {
-      console.log( 'SAVING ITEM' );
+      // console.log( 'SAVING ITEM' );
       let r = await this.$axios.$put( '/item/', this.item );
       // this.$router.go();
     }

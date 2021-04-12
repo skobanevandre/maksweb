@@ -43,7 +43,7 @@ app.get( '/testconnection', async (req, res) => {
     dbs.close();
     res.send('Connection has been established successfully.');
   } catch (error) {
-    console.log( 'error=', error )
+    //  console.log( 'error=', error )
     res.send( 'ERROR' );
   }
 } );
