@@ -6,11 +6,16 @@
     </vs-row>  
 
     <div>
-      <vs-input placeholder="Поиск" class="search">
-        <template #icon>
+      <vs-row justify="flex-start">
+        <vs-input placeholder="Поиск" class="search" v-model="searchString">
+          <template #icon>
+            <i class='bx bx-search'></i>
+          </template>
+        </vs-input>
+        <vs-button icon @click="search( searchString )">
           <i class='bx bx-search'></i>
-        </template>
-      </vs-input>
+        </vs-button>
+      </vs-row>
     </div>  
 
     <vs-row justify="flex-end" align="center" class="user">
@@ -28,6 +33,25 @@
 
   </vs-row>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchString: '',
+    }
+  },
+
+  methods: {
+    search( val ) {
+      if ( val.length > 2 )
+        this.$router.push({ path:'/search', query:{ searchstring: val } } )
+      else 
+        alert( 'минимум 3 символа въ поиске' );
+    },
+  },
+}
+</script>
 
 <style scoped>
   .logo {

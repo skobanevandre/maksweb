@@ -14,6 +14,7 @@ const settingsRouter = require("./routes/settingsRouter.js");
 const otherRouter = require("./routes/otherRouter.js");
 const categoryImageRouter = require("./routes/categoryImageRouter.js");
 const indexpageRouter = require("./routes/indexpageRouter");
+const searchRouter = require("./routes/searchRouter");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use( "/other", otherRouter );
 app.use( "/image", imageRouter );
 app.use( "/catimage", categoryImageRouter );
 app.use( "/indexpage", indexpageRouter );
+app.use( "/search", searchRouter );
 
 app.get( '/', (req, res) => { res.send('main') } );
 
