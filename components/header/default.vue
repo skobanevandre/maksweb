@@ -44,9 +44,10 @@ export default {
 
   methods: {
     search( val ) {
-      if ( val.length > 2 )
-        this.$router.push({ path:'/search', query:{ searchstring: val } } )
-      else 
+      if ( val.length > 2 ) {
+        this.$router.push({ path:'/search', query:{ searchstring: val } } );
+        this.searchString = '';
+      } else 
         alert( 'минимум 3 символа въ поиске' );
     },
   },
