@@ -7,7 +7,7 @@
 
     <div>
       <vs-row justify="flex-start">
-        <vs-input placeholder="Поиск" class="search" v-model="searchString">
+        <vs-input placeholder="Поиск" class="search" v-model="searchString" @keyup.enter="search( searchString )">
           <template #icon>
             <i class='bx bx-search'></i>
           </template>
@@ -60,7 +60,7 @@ export default {
   }
 
   .logoimg {
-    width: 100px;
+    width: 230px;
   }
 
   .user {

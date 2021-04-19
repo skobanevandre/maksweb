@@ -4,6 +4,12 @@
       КАТАЛОГ ТОВАРОВ
     </vs-row>
 
+    <vs-input class="margin-top" style="border: 1px solid silver; border-radius: 10px;">
+      <template #icon>
+        <i class='bx bx-search'></i>
+      </template>
+    </vs-input>
+
     <vs-sidebar relative open notShadow v-model="active">
 
       <vs-sidebar-group 
@@ -14,7 +20,7 @@
         >
 
         <template #header>
-          <vs-sidebar-item arrow :id="category.id.toString()">
+          <vs-sidebar-item arrow :id="category.id.toString()" >
             <template #icon><i class='bx bx-cookie' /></template>
             {{ category.name }}
           </vs-sidebar-item>
@@ -23,13 +29,16 @@
         <vs-sidebar-item 
           v-for = "( child, i ) in category.child"
           :key = "i" 
-          :id = 'child.id.toString()'>
+          :id = 'child.id.toString()'
+          :to = "'/category/' + child.id">
           <template #icon><div style="margin-left: 15px"><i class='bx bx-cookie' /></div></template>          
           {{ child.name }}
         </vs-sidebar-item>
       </vs-sidebar-group>  
 
-      <vs-sidebar-item v-else :id = "category.id.toString()" >
+      <vs-sidebar-item v-else 
+        :id = "category.id.toString()" 
+        :to = "'/category/' + category.id" >
         <template #icon><i class='bx bx-cookie' /></template>
         {{ category.name }}
       </vs-sidebar-item>
