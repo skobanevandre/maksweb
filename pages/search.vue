@@ -2,9 +2,14 @@
   <div>
     <vs-row justify="center" align="center">
 
-      <vs-input v-model="searchString" @keyup.enter="search()" />
+      <vs-input v-model="searchString" @keyup.enter="search()" class="search">
+        <template #icon><i class='bx bx-search' /></template>
+      </vs-input>
 
-      <vs-button @click="search()" class="margin-right">ПОИСК</vs-button>
+      <vs-button @click="search()" class="margin-right">
+        <i class='bx bx-search' style="margin-right: 10px;"/>
+        Поиск
+      </vs-button>
 
       <span style="margin-right: 5px;">Сортировка:</span>
       <vs-select v-model="sort" style="width: 250px;" class="margin-right" @change="doSort()">
@@ -85,3 +90,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .search {
+    border: 1px solid silver; 
+    border-radius: 10px;
+  }
+</style>

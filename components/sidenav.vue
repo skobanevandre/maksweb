@@ -4,10 +4,14 @@
       КАТАЛОГ ТОВАРОВ
     </vs-row>
 
-    <vs-input class="margin-top" style="border: 1px solid silver; border-radius: 10px;">
-      <template #icon>
-        <i class='bx bx-search'></i>
-      </template>
+    <vs-input 
+      class="margin-top search" 
+      placeholder="Поиск..." 
+      v-model="searchString" 
+      @keyup.enter="search( searchString )" 
+      v-if = "$route.path != '/search'" 
+    >
+      <template #icon><i class='bx bx-search' /></template>
     </vs-input>
 
     <vs-sidebar relative open notShadow v-model="active">
@@ -55,6 +59,7 @@ export default {
     return {
       categories: [],
       active: '',
+      searchString: '',
     }
   },
 
@@ -73,6 +78,14 @@ export default {
         }
       }
       return cats;
+    },
+
+    search( val ) {
+      if ( val.length > 2 ) {
+        this.$router.push({ path:'/search', query:{ searchstring: val } } );
+        this.searchString = '';
+      } else 
+        alert( 'минимум 3 символа въ поиске' );
     },
 
   },
@@ -102,5 +115,10 @@ export default {
     height: 50px;
     font-weight: bold;
     font-size: 1.1em;
+  }
+
+  .search {
+    border: 1px solid silver; 
+    border-radius: 10px;
   }
 </style>
