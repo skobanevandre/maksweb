@@ -8,10 +8,7 @@
         <card 
           v-for="( item, j) in category.items"
           :key="j"
-          :title="item.title" 
-          :image="item.titleimage" 
-          :price="259" 
-          :url="item.article" />
+          :item="item" />
       </div>
     </span>
 

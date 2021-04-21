@@ -32,6 +32,17 @@
   </div>
 </template>
 
+<script>
+export default {
+  
+  beforeMount() {
+    this.$store.commit( 'cart/init' );
+    this.$store.commit( 'favorites/init' );
+  }
+
+}
+</script>
+
 <style scoped>
 
   .sidenav {

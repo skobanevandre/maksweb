@@ -1,49 +1,68 @@
 <template>
   <div>
-    <NuxtLink :to=setUrl>
     <vs-card class="card">
 
       <template #title>
-        <h3>{{title}}</h3>
+        <NuxtLink :to=setUrl>
+          <h3>{{ item.title }}</h3>
+        </NuxtLink>
       </template>
 
       <template #img>
-        <img :src=image :alt=title>
+        <NuxtLink :to=setUrl>
+          <img :src="item.titleimage" :alt="item.title">
+        </NuxtLink>
       </template>
 
     <template #text>
       <div class="amountblock">
-        <center><span class="itemPrice">{{price}} ₽</span></center>      
-        <vs-button danger flat>
+        <center>
+          <span class="itemPrice">{{ price }} ₽</span>
+        </center>
+        <vs-button danger flat @click="toCart( item )">
           В корзину
         </vs-button>
       </div>
     </template>
 
     <template #interactions>
-      <vs-button danger size="small">
-        <i class='bx bx-heart'></i>
+      <vs-button danger @click=" $store.commit( 'favorites/add', item )">
+        <i class='bx bx-heart' />
       </vs-button>
     </template>
 
     </vs-card>
-    </NuxtLink>
   </div>
 </template>
 
 <script>
 export default {
-  props: [ 'title', 'image', 'price', 'url'],
+
   data() {
     return {
       amount: 0,
+      item: this.$attrs.item,
     }
   },
+
   computed:{
+
     setUrl() {
-      return '/items/' + this.url;
+      return '/items/' + this.item.article;
+    },
+
+    price() {
+      return  Number( this.item.price.standart ).toFixed( 2 );
+    },
+
+  },
+
+  methods: {
+    toCart( item ) {
+      this.$store.commit('cart/add', item )
     }
   }
+
 }
 </script>
 
