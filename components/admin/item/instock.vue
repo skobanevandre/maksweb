@@ -1,5 +1,5 @@
 <template>
-  <vs-row justify="flex-start" align="center" style="width: 400px;">
+  <vs-row justify="flex-start" align="center">
     <vs-select v-model="$attrs.item.ordered.id" style="width: 250px; margin-right: 10px;">
       <vs-option label="В наличии" value="1" >В наличии</vs-option>
       <vs-option label="Под заказ" value="2" >Под заказ</vs-option>

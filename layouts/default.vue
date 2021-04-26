@@ -35,7 +35,7 @@
 <script>
 export default {
   
-  beforeMount() {
+  mounted() {
     this.$store.commit( 'cart/init' );
     this.$store.commit( 'favorites/init' );
   }

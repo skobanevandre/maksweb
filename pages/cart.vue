@@ -2,6 +2,7 @@
   <div>
     <h1 class="center">Корзина</h1>
 
+  <div v-if="$store.state.cart.items.length > 0">
     <vs-row justify="flex-start" align="center"
       class="row"
       v-for="( data, i ) in $store.state.cart.items"
@@ -33,7 +34,19 @@
 
     </vs-row>
 
-    <vs-row justify="flex-end" class="summ margin-top"> Всего: {{ $store.getters['cart/csum'] }}</vs-row>
+    <vs-row justify="flex-end" class="summ margin-top"> Итого: {{ $store.getters['cart/summ'] }}</vs-row>
+
+    <vs-row justify="center">
+      <NuxtLink to="/user">
+        <vs-button class="margin-top">Оформить заказ</vs-button>
+      </NuxtLink>  
+    </vs-row>  
+
+  </div>  
+
+  <div v-else>
+    <span class="center"> Корзина пуста</span>
+  </div>
 
   </div>    
 </template>

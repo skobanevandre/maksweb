@@ -1,11 +1,12 @@
 <template>
   <vs-row justify="space-around" align="center" >
-    
-    <div class="priceTag">
-      СКИДКА
+    <div class="priceTag" v-if="currentPrice > 0">
+      <span v-if="currentPrice == '1'">Скидка</span>
+      <span v-if="currentPrice == '2'">Распродажа</span>
+      <span v-if="currentPrice == '3'">Ликвидация</span>
     </div>
 
-    <div class="standartPrice">
+    <div class="standartPrice" v-if="currentPrice > 0">
       {{ Number( $attrs.item.price.standart ).toFixed( 2 ) }} ₽	
     </div>
 
@@ -25,12 +26,9 @@ export default {
   data() {
     return {
       notStandartPrice : false,
+      currentPrice: this.$attrs.item.price.current,
     }
   },
-
-  computed: {
-
-  }
   
 }
 </script>

@@ -12,6 +12,7 @@ export default {
           "title" : "",
           "description" : "",
           "price" : {
+            "current": "standart",
             "sale" : "00.00",
             "standart" : "00.00",
             "wholesale" : "00.00",

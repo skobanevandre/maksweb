@@ -5,8 +5,10 @@ export const state = () => ({
 export const mutations = {
 
   init( state ) {
-    if ( localStorage.cart )
+    if ( localStorage.cart ) {
       state.items = JSON.parse( localStorage.cart );
+      console.log( 'ititializing done' )      
+    }  
   },
   
   add( state, item ) {
@@ -33,12 +35,20 @@ export const mutations = {
 export const getters = {
 
     csum: ( state ) => {
+      console.log( 'getting summ and count of cart' );
       if ( state.items.length == 0 ) return 'ПУСТА';
       let sum = 0;
       for ( let data of state.items )
         sum += Number( data.item.price.standart ) * data.qty;
       return sum.toFixed( 2 ) + '₽ ( ' + state.items.length + ' )';
-    }
+    },
+
+    summ: ( state ) => {
+      let sum = 0;
+      for ( let data of state.items )
+        sum += Number( data.item.price.standart ) * data.qty;
+      return sum.toFixed( 2 ) + '₽';
+    },
 
 }
 

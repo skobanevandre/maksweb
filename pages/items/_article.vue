@@ -14,9 +14,17 @@
         <article-priceblock v-model="item" />
         <vs-hr />
 
-        <vs-row justify="space-between">
-          <div>Артикул: <span class="itemArticle">{{ item.article }}</span></div>  
-          <div>В наличии: <span class="itemInStock">Есть</span></div>  
+        <vs-row justify="space-between" align="center">
+          <div style="display:flex; flex-wrap: wrap; align-items: flex-end;">
+            <span class="margin-right">Артикул:</span>
+            <span class="itemArticle">{{ item.article }}</span>
+          </div>  
+
+          <div style="display:flex; flex-wrap: wrap; align-items: flex-end;">
+            <span class="margin-right">В наличии:</span>
+            <article-instock v-model="item"/>  
+          </div>  
+
         </vs-row>
 
          <vs-hr />
@@ -65,8 +73,7 @@
 
       </div>
     </div>  
-
-    <pre> {{ $data }} </pre>
+    
   </div>
 </template>
 

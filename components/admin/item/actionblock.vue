@@ -1,18 +1,22 @@
 <template>
-  <vs-row justify="space-between" class="margin-top">
+  <vs-row justify="space-between" align="center" class="margin-top">
 
-    <div class="rowleft v-center margin-right">
+    <vs-row justify="flex-start" align="center" class="margin-right wdt">
       <span class="margin-right">Активен:</span>
       <vs-switch  v-model="itemActive" />
-    </div>
+    </vs-row>
 
-    <div class="rowleft v-center margin-right">
+    <vs-row justify="flex-start" align="center" class="margin-right wdt">
       <span class="margin-right">На главной:</span>
       <vs-switch v-model="itemIndexpage" />
+    </vs-row>
+
+    <div class="margin-right wdt">
+      <admin-item-instock v-model="$attrs.item" class="wdt" /> 
     </div>
 
-    <div class="rowleft v-center margin-right">
-      <admin-item-instock v-model="$attrs.item" /> 
+    <div class="margin-right wdt">
+      <admin-item-pricing v-model="$attrs.item" class="wdt" /> 
     </div>
 
   </vs-row>
@@ -46,3 +50,9 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.wdt {
+  width: 200px;
+}
+</style>
