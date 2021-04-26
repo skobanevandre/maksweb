@@ -11,11 +11,23 @@
       <img :src="data.item.titleimage" width="70" :alt="data.item.title" class="margin-right itemImage">
 
       <div class="dataCell margin-right">
-        <span class="itemTitle">{{ data.item.title }}</span>  
+        <div class="dataCellItem">
+          <div style="margin-bottom: 10px;">
+            <span >Арткул: <strong>{{ data.item.article }}</strong></span>
+            <span class="priceTag" v-if="data.item.price.current == 1">Скидка</span>
+            <span class="priceTag" v-if="data.item.price.current == 2">Распродажа</span>
+            <span class="priceTag" v-if="data.item.price.current == 3">Ликвидация</span>
+          </div>  
+          <span class="itemTitle">{{ data.item.title }}</span>  
+        </div>
       </div>  
 
       <div class="priceCell margin-right">
-          <span class="itemPrice">{{ Number( data.item.price.standart ).toFixed( 2 ) }} ₽	</span>  
+        <span v-if="Number( data.item.price.current ) > 0" class="standartPrice">{{ Number( data.item.price.standart ).toFixed( 2 ) }} ₽ </span>
+        <span v-if="Number( data.item.price.current ) == 0" class="itemPrice">{{ Number( data.item.price.standart ).toFixed( 2 ) }} ₽	</span>  
+        <span v-if="Number( data.item.price.current ) == 1" class="itemPrice">{{ Number( data.item.price.sale ).toFixed( 2 ) }} ₽	</span> 
+        <span v-if="Number( data.item.price.current ) == 2" class="itemPrice">{{ Number( data.item.price.wholesale ).toFixed( 2 ) }} ₽	</span> 
+        <span v-if="Number( data.item.price.current ) == 3" class="itemPrice">{{ Number( data.item.price.licvidation ).toFixed( 2 ) }} ₽	</span> 
       </div>  
 
       <vs-row justify="space-between" align="center" class="qtyCell margin-right">
@@ -25,11 +37,14 @@
       </vs-row>  
 
       <vs-row justify="center" align="center" class="costCell margin-right">
-          <span class="itemCost">{{ Number( data.item.price.standart * data.qty ).toFixed( 2 ) }} ₽	</span>  
+          <span v-if="Number( data.item.price.current ) == 0" class="itemCost">{{ Number( data.item.price.standart * data.qty ).toFixed( 2 ) }} ₽	</span>  
+          <span v-if="Number( data.item.price.current ) == 1" class="itemCost">{{ Number( data.item.price.sale * data.qty ).toFixed( 2 ) }} ₽	</span> 
+          <span v-if="Number( data.item.price.current ) == 2" class="itemCost">{{ Number( data.item.price.wholesale * data.qty ).toFixed( 2 ) }} ₽	</span> 
+          <span v-if="Number( data.item.price.current ) == 3" class="itemCost">{{ Number( data.item.price.licvidation * data.qty ).toFixed( 2 ) }} ₽	</span> 
       </vs-row>        
 
       <div class="trashCell">
-        <i class="bx bxs-trash trashIcon" />
+        <i class="bx bxs-trash trashIcon" @click="$store.commit( 'cart/del', data.item )"/>
       </div> 
 
     </vs-row>
@@ -57,7 +72,7 @@
   }
 
   .trashIcon {
-    font-size: 1.3em;
+    font-size: 1em;
     color: white;
     background-color: #7c483c;
     padding: 10px;
@@ -81,10 +96,16 @@
 
   .itemTitle {
     font-weight: bold;
+    word-wrap:break-word;
   }
 
   .itemImage {
     border-radius: 10px;
+  }
+
+  .itemPrice {
+    font-weight: bold;
+    font-size: 1.1em;
   }
 
   .itemCost {
@@ -92,13 +113,43 @@
     font-size: 1.2em;
   }
 
+  .standartPrice {
+    font-size: 0.9em;
+    position: relative;
+  }
+
+  .standartPrice::before {
+    border-bottom: 2px solid red;
+    position: absolute;
+    content: "";
+    width: 120%;
+    height: 50%;
+    left: -10%;
+    transform: rotate(9deg);
+  }
+
+  .priceTag {
+    background-color: maroon;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+  }
 
   .dataCell {
     flex-grow: 1;
   }
 
+  .dataCellItem {
+    word-wrap: break-word;
+    max-width: fit-content;
+  }
+
   .priceCell {
     flex-basis: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
   }
 
   .costCell {

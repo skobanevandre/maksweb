@@ -20,11 +20,16 @@
     <template #text>
       <div class="amountblock">
         <center>
-          <span class="itemPrice">{{ price }} ₽</span>
+          <div v-if="Number( item.price.current ) > 0">
+            <span  class="oldPrice">{{ price( item.price.standart ) }} ₽</span>
+            <br>
+          </div>  
+          <span v-if="Number( item.price.current ) == 0" class="itemPrice">{{ price( item.price.standart ) }} ₽</span>
+          <span v-if="Number( item.price.current ) == 1" class="itemPrice">{{ price( item.price.sale ) }} ₽</span>
+          <span v-if="Number( item.price.current ) == 2" class="itemPrice">{{ price( item.price.wholesale ) }} ₽</span>
+          <span v-if="Number( item.price.current ) == 3" class="itemPrice">{{ price( item.price.licvidation ) }} ₽</span>
         </center>
-        <vs-button danger flat @click="toCart( item )">
-          В корзину
-        </vs-button>
+        <span @click="toCart( item )" class="inCart">В корзину</span>
       </div>
     </template>
 
@@ -54,16 +59,17 @@ export default {
       return '/items/' + this.item.article;
     },
 
-    price() {
-      return  Number( this.item.price.standart ).toFixed( 2 );
-    },
-
   },
 
   methods: {
     toCart( item ) {
       this.$store.commit('cart/add', item )
-    }
+    },
+
+    price( val ) {
+      return  Number( val ).toFixed( 2 );
+    },
+
   }
 
 }
@@ -96,5 +102,37 @@ export default {
     padding: 7px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+  }
+
+  .itemPrice {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .oldPrice {
+    color: black;
+    /* font-weight: bold; 
+    font-size: 0.8em;*/
+    position: relative;
+  }
+
+  .oldPrice::before {
+    border-bottom: 2px solid red;
+    position: absolute;
+    content: "";
+    width: 120%;
+    height: 50%;
+    left: -10%;
+    transform: rotate(9deg);
+  }
+
+  .inCart {
+    padding: 7px;
+    color: white;
+    border: 1px solid silver;
+    border-radius: 10px;
+    background-color: #7c483c;
+    font-weight: bold;
   }
 </style>

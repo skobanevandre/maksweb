@@ -39,18 +39,21 @@
         <vs-hr />
 
         <vs-row justify="space-between" align="center" class="margin-bottom">
-          <div style="flex-grow: 0; margin-right: 20px;">
+          <div class="margin-right">
             Количество:
           </div>
-          <div style="flex-grow: 1;">
-            <vs-input type="number" v-model="qty" flat/>
+          <div class="margin-right" style="flex-grow: 1;">
+            <div style="max-width: fit-content;">
+              <vs-input type="number" v-model="qty" style="width: 100%;"/>
+            </div>  
           </div>
+          <vs-button>
+            <i class='bx bx-cart-alt margin-right' />
+            В корзину
+          </vs-button>   
         </vs-row>
 
-        <vs-button primary block size="large" style="margin-bottom: 20px;">
-          <i class='bx bx-cart-alt margin-right' />
-          Оформить заказ
-        </vs-button>       
+    
 
         <vs-row justify="space-between" align="flex-end" class="margin-bottom">
           <div class="commblock">
@@ -73,7 +76,9 @@
 
       </div>
     </div>  
-    
+
+    <div v-html="item.description" />  
+
   </div>
 </template>
 
