@@ -10,7 +10,10 @@
 
       <template #img>
         <NuxtLink :to=setUrl>
-          <img :src="item.titleimage" :alt="item.title">
+          <img :src="item.titleimage" :alt="item.title" class="img">
+          <span v-if="item.price.current == 1" class="tag">Скидка</span>
+          <span v-if="item.price.current == 2" class="tag">Распродажа</span>
+          <span v-if="item.price.current == 3" class="tag">Ликвидация</span>
         </NuxtLink>
       </template>
 
@@ -77,5 +80,21 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
+  }
+
+  .img {
+    position: relative;
+  }
+
+  .tag{ 
+    position: absolute;
+    top: 12px;
+    right: 0px;
+    background-color: brown;
+    color: white;
+    font-weight: bold;
+    padding: 7px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 </style>
