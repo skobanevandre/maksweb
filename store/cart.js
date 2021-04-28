@@ -1,6 +1,6 @@
 export const state = () => ({
   items: [],
-  dialog: null,
+  dialog: [],
 });
 
 export const mutations = {
@@ -43,11 +43,18 @@ export const mutations = {
     state.items[ element.index ].item = element.item;
     state.items[ element.index ].qty = 0; 
     localStorage.cart = JSON.stringify( state.items );
-    state.dialog = 'Внимание. Цены на некоторые товары были изменены. Их количество помечено как 0.';
+    state.dialog.push( 'Цены на некоторые товары были изменены. Их количество помечено как 0.' );
   },
 
-  nullDialog( state ) {
-    state.dialog = null;
+  setItemQty( state, data ) {
+    state.items[ data.index ].qty = data.qty; 
+    localStorage.cart = JSON.stringify( state.items );
+    state.dialog.push( 'Остатки на некоторые товары больше чем заказано. Исправляем до состояния остатков.' );
+  },
+
+  clearDialog( state ) {
+    console.log( 'clearing dialogs' );
+    state.dialog = [];
   }
 
 };
@@ -94,6 +101,8 @@ export const actions = {
     context.state.items.forEach( el => {
       articles.forEach( ael => { 
         if ( el.item.article == ael.article ) { 
+
+          // Проверяем на соответствие цены
           if ( 
             el.item.price.current !== ael.price.current || el.item.price.standart !== ael.price.standart ||  
             el.item.price.sale !== ael.price.sale || el.item.price.wholesale !== ael.price.wholesale ||  
@@ -102,6 +111,17 @@ export const actions = {
             let idx = context.state.items.findIndex( element => element.item.article == el.item.article );
             context.commit( 'tagItem', { 'item': ael, 'index': idx } );
           }  
+        
+          // Проверяем на соотвествии количества остатков
+          if ( Number( el.item.ordered.id ) == 3 ) {
+            console.log( 'el.item.ordered.id:', el.item.ordered.id )
+            console.log( 'el.qty:', el.qty, 'ael.ordered.val:', ael.ordered.val )
+            if ( Number( el.qty ) > Number( ael.ordered.val ) ) {
+              let idx = context.state.items.findIndex( element => element.item.article == el.item.article );
+              context.commit( 'setItemQty', { 'qty': Number( ael.ordered.val ), 'index': idx } );
+              console.log( 'setItemQty' );
+            }  
+          }
         }  
       })
     }); 

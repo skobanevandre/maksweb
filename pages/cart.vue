@@ -2,11 +2,16 @@
   <div>
     <h1 class="center">Корзина</h1>
 
-    <vs-alert v-if="$store.state.cart.dialog" class=" margin-bottom ">
+    <vs-alert v-if="$store.state.cart.dialog.length" class=" margin-bottom ">
       <template #title>
         Внимание !!!
       </template>
-      {{ $store.state.cart.dialog }}
+      <span 
+        v-for="( el, i ) in $store.state.cart.dialog"
+        :key="i"
+      >
+        {{ el }}
+      </span>  
     </vs-alert>
 
     <div v-if="$store.state.cart.items.length > 0">
@@ -24,8 +29,10 @@
               <span class="priceTag" v-if="data.item.price.current == 1">Скидка</span>
               <span class="priceTag" v-if="data.item.price.current == 2">Распродажа</span>
               <span class="priceTag" v-if="data.item.price.current == 3">Ликвидация</span>
-            </div>  
-            <span class="itemTitle">{{ data.item.title }}</span>  
+            </div> 
+            <NuxtLink :to="'/items/' + data.item.article" >
+              <span class="itemTitle">{{ data.item.title }}</span>  
+            </NuxtLink>  
           </div>
         </div>  
 
@@ -120,6 +127,10 @@ export default {
 
   mounted() {
     this.$store.dispatch( 'cart/verification' );
+  },
+
+  destroyed() {
+    this.$store.commit( 'cart/clearDialog' );
   }
 }
 </script>
