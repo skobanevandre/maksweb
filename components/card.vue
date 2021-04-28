@@ -63,7 +63,7 @@ export default {
 
   methods: {
     toCart( item ) {
-      this.$store.commit('cart/add', item )
+      this.$store.commit('cart/add', { 'item': item, 'qty': 1 } )
     },
 
     price( val ) {

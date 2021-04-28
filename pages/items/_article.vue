@@ -24,21 +24,20 @@
             <span class="margin-right">В наличии:</span>
             <article-instock v-model="item"/>  
           </div>  
-
         </vs-row>
 
-         <vs-hr />
+        <vs-hr />
 
         <vs-row justify="space-between">
-          <div>Высота: 120 мм</div>
-          <div>Ширина: 65 мм</div>
-          <div>Глубина: 10 мм</div>  
-          <div>Вес: 20 гр</div>  
+          <div>Высота: {{ item.dimensions.height }} мм</div>
+          <div>Ширина: {{ item.dimensions.width }} мм</div>
+          <div>Глубина: {{ item.dimensions.deep }} мм</div>  
+          <div>Вес: {{ item.dimensions.weight }} гр</div>  
         </vs-row>  
 
         <vs-hr />
 
-        <vs-row justify="space-between" align="center" class="margin-bottom">
+        <vs-row justify="space-between" align="center" class="margin-bottom" v-if="Number(item.ordered.id) !== 2">
           <div class="margin-right">
             Количество:
           </div>
@@ -47,13 +46,15 @@
               <vs-input type="number" v-model="qty" style="width: 100%;"/>
             </div>  
           </div>
-          <vs-button>
+          <vs-button @click="$store.commit( 'cart/add', { 'item': item, 'qty': qty } )">
             <i class='bx bx-cart-alt margin-right' />
             В корзину
           </vs-button>   
         </vs-row>
 
-    
+        <vs-row justify="space-between" align="center" class="margin-bottom" v-else>
+          <p style="text-align: center; font-weight: bold;">Для заказа данного товара свяжитесь, пожалуйста, с нами любым удобным для Вас способом</p>
+        </vs-row>
 
         <vs-row justify="space-between" align="flex-end" class="margin-bottom">
           <div class="commblock">
@@ -87,8 +88,22 @@ export default {
   data() {
     return {
       article: this.$route.params.article,
-      qty: 1,
+      qtyItem: 1,
     }
+  },
+
+  computed: {
+    qty: {
+      get() {
+        return this.qtyItem;
+      },
+      set( val ) {
+        if ( this.item.ordered.id == 3 )
+          if ( Number( val ) > Number( this.item.ordered.val ) ) 
+            this.qtyItem = this.item.ordered.val;
+          else this.qtyItem = val;    
+      }
+    },
   },
   
   async asyncData({ params, $axios }) {
