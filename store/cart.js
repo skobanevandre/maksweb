@@ -114,12 +114,9 @@ export const actions = {
         
           // Проверяем на соотвествии количества остатков
           if ( Number( el.item.ordered.id ) == 3 ) {
-            console.log( 'el.item.ordered.id:', el.item.ordered.id )
-            console.log( 'el.qty:', el.qty, 'ael.ordered.val:', ael.ordered.val )
             if ( Number( el.qty ) > Number( ael.ordered.val ) ) {
               let idx = context.state.items.findIndex( element => element.item.article == el.item.article );
               context.commit( 'setItemQty', { 'qty': Number( ael.ordered.val ), 'index': idx } );
-              console.log( 'setItemQty' );
             }  
           }
         }  

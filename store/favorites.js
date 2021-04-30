@@ -11,8 +11,9 @@ export const mutations = {
     localStorage.favorites = JSON.stringify( state.items );
   },
 
-  remove( state, article ) {
-    console.log( 'removing' );
+  remove( state, item ) {
+    state.items.splice( state.items.findIndex( element => element.article == item.article ), 1 );
+    localStorage.favorites = JSON.stringify( state.items );
   },
 
   init( state ) {
@@ -27,7 +28,17 @@ export const getters = {
     count: ( state ) => {
       if ( state.items.length == 0 ) return 'ПУСТО';
       return state.items.length;
-    }
+    },
+
+    items: ( state ) => {
+      return state.items;
+    },
+
+};
+
+export const actions = {
+
+
 
 }
 

@@ -20,31 +20,53 @@
     <template #text>
       <div class="amountblock">
         <center>
+
           <div v-if="Number( item.price.current ) > 0">
-            <span  class="oldPrice">{{ price( item.price.standart ) }} ₽</span>
-            <br>
+            <span  class="oldPrice">{{ price( item.price.standart ) }} ₽</span><br>
           </div>  
+
           <span v-if="Number( item.price.current ) == 0" class="itemPrice">{{ price( item.price.standart ) }} ₽</span>
           <span v-if="Number( item.price.current ) == 1" class="itemPrice">{{ price( item.price.sale ) }} ₽</span>
           <span v-if="Number( item.price.current ) == 2" class="itemPrice">{{ price( item.price.wholesale ) }} ₽</span>
           <span v-if="Number( item.price.current ) == 3" class="itemPrice">{{ price( item.price.licvidation ) }} ₽</span>
+
         </center>
+
         <span @click="toCart( item )" class="inCart">В корзину</span>
+
+        <vs-row justify="flex-end" v-if="$props.favorites">
+          <vs-button  danger @click=" $store.commit( 'favorites/remove', item )">
+            <i class='bx bx-x' style="font-weight: bold;"/>
+          </vs-button>
+        </vs-row>
       </div>
     </template>
 
     <template #interactions>
-      <vs-button danger @click=" $store.commit( 'favorites/add', item )">
-        <i class='bx bx-heart' />
+      
+      <vs-button v-if="!$props.favorites" danger @click=" $store.commit( 'favorites/add', item )">
+        <i v-if="isFavorite( item )" class='bx bxs-heart' />
+        <i v-else class='bx bx-heart' />
       </vs-button>
+
     </template>
 
     </vs-card>
+
+    <pre v-if="1==0" > {{ $props }} </pre>
+
+
   </div>
 </template>
 
 <script>
 export default {
+
+  props: { 
+    favorites: {
+      default: false,
+    } 
+  },
 
   data() {
     return {
@@ -70,6 +92,12 @@ export default {
       return  Number( val ).toFixed( 2 );
     },
 
+    isFavorite( item ) {
+       if ( this.$store.getters[ 'favorites/items' ].findIndex( element => element.article == item.article ) > -1 ) 
+        return true;
+      else 
+        return false;  
+    }
   }
 
 }
