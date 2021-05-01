@@ -37,7 +37,13 @@ export const getters = {
 };
 
 export const actions = {
+  toggle( context, item ) {
 
+    if ( context.state.items.findIndex( element => element.article == item.article ) < 0 )
+      context.commit( 'add', item );
+    else 
+      context.commit( 'remove', item );
+  }
 
 
 }

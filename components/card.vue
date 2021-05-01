@@ -36,7 +36,7 @@
 
         <vs-row justify="flex-end" v-if="$props.favorites">
           <vs-button  danger @click=" $store.commit( 'favorites/remove', item )">
-            <i class='bx bx-x' style="font-weight: bold;"/>
+            <i class='bx bx-x' style="font-weight:bold;"/>
           </vs-button>
         </vs-row>
       </div>
@@ -44,7 +44,7 @@
 
     <template #interactions>
       
-      <vs-button v-if="!$props.favorites" danger @click=" $store.commit( 'favorites/add', item )">
+      <vs-button v-if="!$props.favorites" danger @click=" $store.dispatch( 'favorites/toggle', item )">
         <i v-if="isFavorite( item )" class='bx bxs-heart' />
         <i v-else class='bx bx-heart' />
       </vs-button>
