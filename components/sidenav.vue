@@ -1,6 +1,7 @@
 <template>
   <div class="margin-top">
     <vs-row class="topBlock" justify="center" align="center">
+      <i class='bx bx-menu' style="margin-right: 10px; font-size: 1.2em;"/>
       КАТАЛОГ ТОВАРОВ
     </vs-row>
 

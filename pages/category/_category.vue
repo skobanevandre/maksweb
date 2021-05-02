@@ -1,14 +1,21 @@
 <template>
   <div class="margin-top">
-    <titletext class="center">{{ category.name }}</titletext>
-    
-    <vs-row justify="center" align="center" class="margin-top">
-      <span class="margin-right">Сортировать по: </span>
-      <vs-select v-model="sort" class="sort" @change="doSort()">
-        <vs-option label="Рекомендуемые" value="0">Рекомендуемые</vs-option>
-        <vs-option label="Возрастанию цены" value="1">Возрастанию цены</vs-option>
-        <vs-option label="Убыванию цены" value="2">Убыванию цены</vs-option>
-      </vs-select>
+
+    <vs-row justify="space-between" align="center">
+      
+      <div style="flex-grow: 1;">
+        <titletext style="margin-left: 20px;">{{ category.name }}</titletext>
+      </div>
+
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
+        <span class="margin-right">Сортировать по: </span>
+        <vs-select v-model="sort" class="sort" @change="doSort()">
+          <vs-option label="Рекомендуемые" value="0">Рекомендуемые</vs-option>
+          <vs-option label="Возрастанию цены" value="1">Возрастанию цены</vs-option>
+          <vs-option label="Убыванию цены" value="2">Убыванию цены</vs-option>
+        </vs-select>
+      </div>
+
     </vs-row>
     
     <div class="cards margin-top">

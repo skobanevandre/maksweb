@@ -7,7 +7,7 @@
       </div>  
     </header>
     
-    <div class="container maincontainer">
+    <vs-row class="" justify="center" align="flex-start">
       <nav>
         <div class="sidenav">
           <sidenav />
@@ -20,7 +20,8 @@
           <Nuxt />
         </div>  
       </main>  
-    </div>  
+
+    </vs-row>  
 
     <footer>
       <div class="container">
@@ -29,6 +30,7 @@
         <footerright/> 
       </div>
     </footer>
+
   </div>
 </template>
 
@@ -38,6 +40,7 @@ export default {
   mounted() {
     this.$store.commit( 'cart/init' );
     this.$store.commit( 'favorites/init' );
+    console.log( 'browser width: ', window.innerWidth );
   }
 
 }
@@ -46,11 +49,11 @@ export default {
 <style scoped>
 
   .sidenav {
-    width: 265px;
+    max-width: 265px;
   }
 
   .content {
-    width: 930px;
+    max-width: 930px;
   }
 
   .maincontainer {
