@@ -18,7 +18,6 @@
         :item="item" />
     </div>
 
-  <pre> {{ items }} </pre>
   </div>  
 </template>
 
