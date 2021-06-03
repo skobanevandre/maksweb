@@ -179,12 +179,12 @@ export default {
 
     delImage() {
       this.category.image = null;
-      // Ссылка на АПИ для удажения картинки
+      // Ссылка для удажения картинки
 
     },
 
     async sendImage( image ) {
-      // Ссылка на АПИ для сохранения категории
+      // Ссылка для сохранения категории
       let fd = new FormData();
       fd.append('image', image )
 

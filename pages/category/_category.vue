@@ -44,21 +44,24 @@ export default {
     doSort( ) {
       switch( this.sort ) {
         case '0':
-          this.ritems.splice( 0, this.ritems.length );
+          this.ritems = [];
+          // this.ritems.splice( 0, this.ritems.length );
           this.$nextTick( () => {
             this.ritems = Object.assign( [], this.items.sort( ( a, b ) => ( Number( a.sold ) < Number( b.sold ) && 1 ) || ( Number( a.sold ) > Number( b.sold ) && -1 ) || 0 ) ); 
           } );  
         break;
 
         case '1': 
-          this.ritems.splice( 0, this.ritems.length );
+          this.ritems = [];
+          // this.ritems.splice( 0, this.ritems.length );
           this.$nextTick( () => {
             this.ritems = Object.assign( [], this.items.sort( ( a, b ) => ( Number( a.price.standart ) > Number( b.price.standart ) && 1 ) || ( Number( a.price.standart ) < Number( b.price.standart ) && -1 ) || 0 ) ); 
           } );  
         break;
 
         case '2': 
-          this.ritems.splice( 0, this.ritems.length );
+          this.ritems = [];
+          // this.ritems.splice( 0, this.ritems.length );
           this.$nextTick( () => {
             this.ritems = Object.assign( [], this.items.sort( ( a, b ) => ( Number( a.price.standart ) < Number( b.price.standart ) && 1 ) || ( Number( a.price.standart ) > Number( b.price.standart ) && -1 ) || 0 ) ); 
           } )  

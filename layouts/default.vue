@@ -2,45 +2,53 @@
   <div>
 
     <header>
-      <div class="container">
+      <div>
         <header-default />
       </div>  
     </header>
     
-    <vs-row class="" justify="center" align="flex-start">
-      <nav>
-        <div class="sidenav">
-          <sidenav />
-        </div>  
-      </nav>  
+    <vs-row justify="space-between" align="flex-start">
 
-      <main>
-        <div class="content">
-          <topnav />
-          <Nuxt />
-        </div>  
-      </main>  
+        <div style="max-width: fit-content;">
+          <nav>
+            <sidenav />
+          </nav>  
+        </div>
+
+        <div style="flex:1;">
+          <main>
+            <topnav />
+            <Nuxt />
+          </main>  
+        </div>
 
     </vs-row>  
 
     <footer>
-      <div class="container">
-        <footerleft/> 
-        <footercenter/> 
-        <footerright/> 
-      </div>
+      <vs-row justify="center" align="flex-start">
+        <footerleft style="flex-grow: 1;"/> 
+        <footercenter style="flex-grow: 1;"/> 
+        <footerright style="flex-grow: 1;"/> 
+      </vs-row>
     </footer>
 
+    <center>
   </div>
 </template>
 
 <script>
 export default {
+
+  data() {
+    return {
+      screenWidth: 0,
+    }
+  },
   
   mounted() {
     this.$store.commit( 'cart/init' );
     this.$store.commit( 'favorites/init' );
-    console.log( 'browser width: ', window.innerWidth );
+    this.screenWidth = window.innerWidth;
   }
 
 }
@@ -48,28 +56,5 @@ export default {
 
 <style scoped>
 
-  .sidenav {
-    max-width: 265px;
-  }
-
-  .content {
-    max-width: 930px;
-  }
-
-  .maincontainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-  }
-
-  .headercontainer {
-    height: 300px;
-    border-radius: 20px;
-    background-image: url("/images/template/logo.png") ;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 60%;
-  }
 
 </style>

@@ -73,7 +73,7 @@
       </div>
 
       <template #footer>
-        <div class="rowright">
+        <vs-row justify="flex-end" align="center">
           <vs-button @click="delCategory( selected )"> 
             <i class="bx bx-check" style="margin-right: 10px;"/>
             Да
@@ -82,7 +82,7 @@
             <i class="bx bx-x" style="margin-right: 10px;"/>
             Отмена
           </vs-button>
-        </div>  
+        </vs-row>  
       </template>      
     </vs-dialog>  
 
@@ -115,7 +115,7 @@
       </div>
 
       <template #footer>
-        <div class="rowright">
+        <vs-row justify="flex-end" align="center">
           <vs-button @click="newCategory( cat )"> 
             <i class="bx bx-check" style="margin-right: 10px;"/>
             Применить
@@ -124,7 +124,7 @@
             <i class="bx bx-x" style="margin-right: 10px;"/>
             Отмена
           </vs-button>
-        </div>  
+        </vs-row>  
       </template>      
     </vs-dialog>  
 
